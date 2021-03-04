@@ -1,0 +1,39 @@
+<!-- Staff List -->
+<ion-header>
+  <ion-toolbar color="primary" mode="md">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Staff List</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-grid class="main-grid ion-no-padding">
+<div class="container">
+    <ion-list lines="none" style="margin-bottom: 0px">
+      <ion-item>
+        <ion-searchbar [(ngModel)]="term" placeholder="Staff name, Email, Phone Number, IC ..."
+          showCancelButton="focus">
+        </ion-searchbar>
+      </ion-item>
+    </ion-list>
+  
+    <ion-virtual-scroll [items]="staffs| fuse:term:options" approxItemHeight="80px">
+    <ion-item *virtualItem="let staff" button (click)="navigateToStaffDetails(staff.ID)" style="padding-top: 1px">
+      <ion-avatar slot="start">
+        <ion-img [src]="staff.IMAGE"
+          (ionError)="$event.target.src = 'assets/image/no_img.png'"></ion-img>
+      </ion-avatar>
+      <ion-text>
+        <h2>{{ staff.NAME }}</h2>
+        <p>{{ staff.TELNO }}</p>
+        <p>{{ staff.EMAIL }}</p>
+      </ion-text>
+    </ion-item>
+  </ion-virtual-scroll>
+  
+  </div>
+  
+  </ion-grid>
+</ion-content>

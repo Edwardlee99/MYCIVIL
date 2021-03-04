@@ -1,0 +1,1458 @@
+<ion-header>
+  <ion-toolbar mode="md" color="primary">
+    <ion-title>Register Birth Certificate</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="glob-container">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-xs="12" size-md="5" push-md="7">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title color="danger" class="text-bold">Important Notice</ion-card-title>
+            </ion-card-header>
+            <ion-card-content class="ion-padding-top">
+              <ion-text>
+                <p>
+                  This register birth certificate service will need your following attachment: 
+                </p>
+                <ul>
+                  <li>Both Parents Idetification Cards</li>
+                  <li>Kad Pranatal (Buku Rawatan Mengandung) atau Kad Rawatan Semasa Ibu Mengandung</li>
+                  <li>Polis Report when birth in house</li>
+                  <li>Borang Pengesahan Kelahiran daripada hospital atau Surat Pengesahan Doktor bagi kelahiran di rumah </li>
+                  <li>Surat akuan AM80 sekiranya tiada buku rawatan mengandung atau kad rawatan mengandung. </li>
+                </ul>  
+                <br>
+                <ion-text color="danger">
+                  <p>
+                   The attachment can only accept pdf file format and picture or image format. 
+                  </p>
+                </ion-text>
+                  <br>
+                  <ion-text color="danger">
+                    <p>
+                      Please make sure the image or picture format attachment is clear while it is not clear we will fail your approval status!!!
+                    </p>
+                  </ion-text>
+                    <br>
+                    <ion-text color="danger">
+                      <p>
+                        Do not try to choose other than pdf file format and picture or image format to upload attachment. We can fail your approval status too!!!
+                      </p>
+                    </ion-text>
+                      <br>
+                <p>
+                  This Service can be used for register birth certificate at <ion-text
+                    color="danger">14 days only</ion-text>.
+                </p>
+                <br>
+                <p>
+                 After 14 days, it will need to pay penalties of <ion-text
+                 color="danger">RM50 </ion-text>
+                in Sabah and Sarawak while after 60 days for late register in Semenanjung will also need to pay of <ion-text
+                 color="danger">RM50 </ion-text>.
+                </p>
+              <br>
+              <ion-text color="danger">
+                <p>
+                 After 14 days, Semenanjung need to go respectively JPN office to register birth certificate!!!
+                </p>
+              </ion-text>
+                <br>
+                <ion-text color="danger">
+                  <p>
+                    If you have a question about register birth certificate, you can use our
+                    <a tappable="true" class="text-bold" (click)="openOnlineFeedbackSystem()">Online Feedback System</a>
+                    to send your feedback to the person who is in charge.
+                  </p>
+                </ion-text>
+              </ion-text>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+        <ion-col size-xs="12" size-md="7" pull-md="5">
+          <ion-card>
+            <ion-card-header color="primary">
+              <ion-card-title>Register Birth Certificate</ion-card-title>
+            </ion-card-header>
+            <span *ngIf="!birthinhome; else homeform">
+              <span *ngIf="!birthinhospital; else hospitalform">
+            <ion-card-content class="ion-no-padding">
+            
+              <!-- Birth in Home Button -->
+            <ion-col size="12" class="ion-no-padding">
+              <ion-button (click)="homebirth()" class="option-button ion-no-margin">
+                <span>Birth in Home</span>
+              </ion-button>
+            </ion-col> 
+
+
+            <!-- Birth in Hospital Button -->
+          <ion-col size="12" class="ion-no-padding">
+          <ion-button (click)="hospitalbirth()" class="option-button ion-no-margin">
+            <span>Birth in Hospital</span>
+          </ion-button>
+          </ion-col> 
+            </ion-card-content>
+          </span>
+        </span>
+
+        <!-- Birth in home form -->
+        <ng-template #homeform>
+          <!-- Web version Form -->
+          <ng-template [ngIf]="webversion">
+            <ion-card-content>
+              <form [formGroup]="validations_form" (ngSubmit)="registerwebhomebirth(validations_form)">
+              
+              <!-- Input-field-motheric -->
+              <ion-item lines="full">
+                <ion-label position="floating"> Mother Identification Card Number :
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input type="text" formControlName="motheric" [placeholder]="'New NRIC No.'"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.motheric">
+                    <div class="error-message" *ngIf="validations_form.get('motheric').hasError(validation.type) && (validations_form.get('motheric').dirty || validations_form.get('motheric').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+
+                  <!-- Input-field-mother Name -->
+              <ion-item lines="full">
+                <ion-label position="floating"> Mother Full Name :
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input type="text" formControlName="mothername"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.mothername">
+                    <div class="error-message" *ngIf="validations_form.get('mothername').hasError(validation.type) && (validations_form.get('mothername').dirty || validations_form.get('mothername').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+
+
+                <!-- Input-field-fatheric -->
+              <ion-item lines="full">
+                <ion-label position="floating"> Father Identification Card Number :
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input type="text" formControlName="fatheric" [placeholder]="'New NRIC No.'"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.fatheric">
+                    <div class="error-message" *ngIf="validations_form.get('fatheric').hasError(validation.type) && (validations_form.get('fatheric').dirty || validations_form.get('fatheric').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+
+                     <!-- Input-field-fathername -->
+              <ion-item lines="full">
+                <ion-label position="floating"> Father Full Name :
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input type="text" formControlName="fathername"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.fathername">
+                    <div class="error-message" *ngIf="validations_form.get('fathername').hasError(validation.type) && (validations_form.get('fathername').dirty || validations_form.get('fathername').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+
+              <!-- Input-field-email -->
+              <ion-item lines="full">
+                <ion-label position="floating"> Mother/Father Email Address :
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input type="text" formControlName="email" [placeholder]="'Exp:john@mail.com'"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.email">
+                    <div class="error-message" *ngIf="validations_form.get('email').hasError(validation.type) && (validations_form.get('email').dirty || validations_form.get('email').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+
+
+                  <!-- Phone Section -->
+                  <div formGroupName="country_phone">
+                    <!-- Input-field-country code -->
+                    <ion-item lines="full">
+                    <ion-label position="floating"> Country:
+                      <font class = "CompulsoryMsg">*</font>
+                    </ion-label>
+                    <ion-select formControlName="country" cancelText="Cancel" okText="OK">
+                      <ion-select-option *ngFor="let item of countries" [value]="item">{{item.name}}</ion-select-option>
+                    </ion-select>
+                  </ion-item>
+  
+                  <!-- Input-field-Telephone number -->
+                  <ion-item lines="full">
+                    <ion-label position="floating"> Mother/Father Telephone:
+                      <font class = "CompulsoryMsg">*</font>
+                    </ion-label>
+                  <ion-input placeholder="{{ validations_form.value.country_phone.country.sample_phone }}" type="text" formControlName="phone"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.phone">
+                    <div class="error-message" *ngIf="validations_form.get('country_phone').get('phone').hasError(validation.type) && (validations_form.get('country_phone').get('phone').dirty || validations_form.get('country_phone').get('phone').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                  </div>
+                  </div>
+
+          <!-- Input-field- baby full name -->
+          <ion-item lines="full">
+            <ion-label position="floating">Baby Full Name:
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-input type="text" formControlName="name"></ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.name">
+              <div class="error-message" *ngIf="validations_form.get('name').hasError(validation.type) && (validations_form.get('name').dirty || validations_form.get('name').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>       
+        
+            <!-- Baby Gender -->
+            <ion-item lines="full">
+              <ion-label position="floating">Baby Gender:
+                <font class = "CompulsoryMsg">*</font>
+              </ion-label>
+              <ion-select formControlName="gender" cancelText="Cancel" okText="OK">
+                <ion-select-option *ngFor="let gender of genders" [value]="gender">{{gender}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.gender">
+                <div class="error-message" *ngIf="validations_form.get('gender').hasError(validation.type) && (validations_form.get('gender').dirty || validations_form.get('gender').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>              
+                
+               <!-- State -->
+             <ion-item lines="full">
+              <ion-label position="floating">State of baby birth placed:
+                <font class = "CompulsoryMsg">*</font>
+              </ion-label>
+              <ion-select formControlName="state" cancelText="Cancel" okText="OK">
+                <ion-select-option *ngFor="let state of states" [value]="state">{{state}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.state">
+                <div class="error-message" *ngIf="validations_form.get('state').hasError(validation.type) && (validations_form.get('state').dirty || validations_form.get('state').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
+
+                <!-- Birth Date -->
+          <ion-item lines="full">
+            <ion-label position="floating">Baby Birth Date:
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-datetime [min]="minDate" [max]="maxDate" formControlName="birthdate"></ion-datetime>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.birthdate">
+              <div class="error-message" *ngIf="validations_form.get('birthdate').hasError(validation.type) && (validations_form.get('birthdate').dirty || validations_form.get('birthdate').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>     
+          
+          <!-- Birth Time -->
+          <ion-item lines="full">
+            <ion-label position="floating">Baby Birth Time:
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-datetime formControlName="birthtime" displayFormat="hh-mm-A"></ion-datetime>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.birthtime">
+              <div class="error-message" *ngIf="validations_form.get('birthtime').hasError(validation.type) && (validations_form.get('birthtime').dirty || validations_form.get('birthtime').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>          
+
+          <!-- Upload FatherIC -->
+          <ion-item lines="full">
+            <ion-label position="stacked"> Father Identification Card Number (Copy):
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-input  formControlName="fathercopyic" type= "file"
+            class="upload" (change)="uploadfaicFile($event.target.files)" 
+            accept="image/*,.pdf">
+            </ion-input>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.fathercopyic">
+                <div class="error-message" *ngIf="validations_form.get('fathercopyic').hasError(validation.type) && (validations_form.get('fathercopyic').dirty || validations_form.get('fathercopyic').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>                
+
+
+                    <!-- Upload MotherIC -->
+                <ion-item lines="full">
+                  <ion-label position="stacked"> Mother Identification Card Number (Copy):
+                    <font class = "CompulsoryMsg">*</font>
+                  </ion-label>
+                  <ion-input  formControlName="mothercopyic" type= "file"
+                  class="upload" (change)="uploadmoicFile($event.target.files)" 
+                  accept="image/*,.pdf">
+                  </ion-input>
+                  </ion-item>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validation_messages.mothercopyic">
+                      <div class="error-message" *ngIf="validations_form.get('mothercopyic').hasError(validation.type) && (validations_form.get('mothercopyic').dirty || validations_form.get('mothercopyic').touched)">
+                        <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+
+                <!-- Upload Marry Certificate -->
+                <ion-item lines="full">
+                  <ion-label position="stacked"> Marry Certificate (Copy):
+                    <font class = "CompulsoryMsg">*</font>
+                  </ion-label>
+                  <ion-input  formControlName="marrycer" type= "file"
+                  class="upload" (change)="uploadmacerFile($event.target.files)" 
+                  accept="image/*,.pdf">
+                  </ion-input>
+                  </ion-item>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validation_messages.marrycer">
+                      <div class="error-message" *ngIf="validations_form.get('marrycer').hasError(validation.type) && (validations_form.get('marrycer').dirty || validations_form.get('marrycer').touched)">
+                        <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+
+                   <!-- Upload Death Certificate For Father-->
+                <ion-item lines="full">
+                  <ion-label position="stacked">(If Applicable) Death Certificate For Father (Copy) :
+                  </ion-label>
+                  <ion-input  formControlName="fatherdeath" type= "file"
+                  class="upload" (change)="uploadfadeFile($event.target.files)" 
+                  accept="image/*,.pdf">
+                  </ion-input>
+                  </ion-item>
+            
+
+                  <!-- Upload Death Certificate For Father-->
+                <ion-item lines="full">
+                  <ion-label position="stacked">(If Applicable) Death Certificate For Mother (Copy) :
+                  </ion-label>
+                  <ion-input  formControlName="motherdeath" type= "file"
+                  class="upload" (change)="uploadmodeFile($event.target.files)" 
+                  accept="image/*,.pdf">
+                  </ion-input>
+                  </ion-item>
+                 
+
+                <!-- Upload Doctor Letter Confirmation -->
+                <ion-item lines="full">
+                  <ion-label position="stacked"> Doctor Letter Confirmation (Copy):
+                    <font class = "CompulsoryMsg">*</font>
+                  </ion-label>
+                  <ion-input  formControlName="docletter" type= "file"
+                  class="upload" (change)="uploaddocletFile($event.target.files)" 
+                  accept="image/*,.pdf">
+                  </ion-input>
+                  </ion-item>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validation_messages.docletter">
+                      <div class="error-message" *ngIf="validations_form.get('docletter').hasError(validation.type) && (validations_form.get('docletter').dirty || validations_form.get('docletter').touched)">
+                        <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+
+                  <!-- Upload Kad Pranatal/Kad Rawatan Semasa Ibu Mengandung/Surat akuan AM80 -->
+                <ion-item lines="full">
+                  <ion-label position="stacked"> Kad Pranatal/Kad Rawatan Semasa Ibu Mengandung/Surat akuan AM80  (Copy):
+                    <font class = "CompulsoryMsg">*</font>
+                  </ion-label>
+                  <ion-input  formControlName="caletter" type= "file"
+                  class="upload" (change)="uploadcaleFile($event.target.files)" 
+                  accept="image/*,.pdf">
+                  </ion-input>
+                  </ion-item>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validation_messages.caletter">
+                      <div class="error-message" *ngIf="validations_form.get('caletter').hasError(validation.type) && (validations_form.get('caletter').dirty || validations_form.get('caletter').touched)">
+                        <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+
+                      <!-- Upload Polis Report -->
+                <ion-item lines="full">
+                  <ion-label position="stacked"> Police Report  (Copy):
+                    <font class = "CompulsoryMsg">*</font>
+                  </ion-label>
+                  <ion-input  formControlName="poreport" type= "file"
+                  class="upload" (change)="uploadporeFile($event.target.files)" 
+                  accept="image/*,.pdf">
+                  </ion-input>
+                  </ion-item>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validation_messages.poreport">
+                      <div class="error-message" *ngIf="validations_form.get('poreport').hasError(validation.type) && (validations_form.get('poreport').dirty || validations_form.get('poreport').touched)">
+                        <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+
+               
+                <div class="ion-padding">
+                   <!-- Back Button -->
+                  <ion-button expand="medium" color="danger" (click)="exitwebhome()">
+                    Cancel  <ion-icon name="ban-outline" slot="end"></ion-icon>
+                  </ion-button>
+                  <!-- Submit Button -->
+                  <ion-button type="submit" expand="medium" [disabled]="!validations_form.valid">
+                    Submit  <ion-icon name="send" slot="end"></ion-icon>
+                  </ion-button>
+                </div> 
+
+                </form>
+                </ion-card-content>            
+          </ng-template>
+          
+           <!-- Mobile version Form -->
+          <ng-template [ngIf]="mobileversion">
+          <ion-card-content> 
+            <form [formGroup]="mvalidations_form" (ngSubmit)="mobilehomebirth(mvalidations_form)">
+              
+              <!-- Input-field-motheric -->
+              <ion-item lines="full">
+                <ion-label position="floating"> Mother Identification Card Number :
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input type="text" formControlName="motheric" [placeholder]="'New NRIC No.'"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.motheric">
+                    <div class="error-message" *ngIf="mvalidations_form.get('motheric').hasError(validation.type) && (mvalidations_form.get('motheric').dirty || mvalidations_form.get('motheric').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+
+                  <!-- Input-field-mother Name -->
+              <ion-item lines="full">
+                <ion-label position="floating"> Mother Full Name :
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input type="text" formControlName="mothername"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.mothername">
+                    <div class="error-message" *ngIf="mvalidations_form.get('mothername').hasError(validation.type) && (mvalidations_form.get('mothername').dirty || mvalidations_form.get('mothername').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+
+
+                <!-- Input-field-fatheric -->
+              <ion-item lines="full">
+                <ion-label position="floating"> Father Identification Card Number :
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input type="text" formControlName="fatheric" [placeholder]="'New NRIC No.'"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.fatheric">
+                    <div class="error-message" *ngIf="mvalidations_form.get('fatheric').hasError(validation.type) && (mvalidations_form.get('fatheric').dirty || mvalidations_form.get('fatheric').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+
+                     <!-- Input-field-fathername -->
+              <ion-item lines="full">
+                <ion-label position="floating"> Father Full Name :
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input type="text" formControlName="fathername"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.fathername">
+                    <div class="error-message" *ngIf="mvalidations_form.get('fathername').hasError(validation.type) && (mvalidations_form.get('fathername').dirty || mvalidations_form.get('fathername').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+
+              <!-- Input-field-email -->
+              <ion-item lines="full">
+                <ion-label position="floating"> Mother/Father Email Address :
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input type="text" formControlName="email" [placeholder]="'Exp:john@mail.com'"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.email">
+                    <div class="error-message" *ngIf="mvalidations_form.get('email').hasError(validation.type) && (mvalidations_form.get('email').dirty || mvalidations_form.get('email').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+
+
+                  <!-- Phone Section -->
+                  <div formGroupName="country_phone">
+                    <!-- Input-field-country code -->
+                    <ion-item lines="full">
+                    <ion-label position="floating"> Country:
+                      <font class = "CompulsoryMsg">*</font>
+                    </ion-label>
+                    <ion-select formControlName="country" cancelText="Cancel" okText="OK">
+                      <ion-select-option *ngFor="let item of countries" [value]="item">{{item.name}}</ion-select-option>
+                    </ion-select>
+                  </ion-item>
+  
+                  <!-- Input-field-Telephone number -->
+                  <ion-item lines="full">
+                    <ion-label position="floating"> Mother/Father Telephone:
+                      <font class = "CompulsoryMsg">*</font>
+                    </ion-label>
+                  <ion-input placeholder="{{ mvalidations_form.value.country_phone.country.sample_phone }}" type="text" formControlName="phone"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.phone">
+                    <div class="error-message" *ngIf="mvalidations_form.get('country_phone').get('phone').hasError(validation.type) && (mvalidations_form.get('country_phone').get('phone').dirty || mvalidations_form.get('country_phone').get('phone').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                  </div>
+                  </div>
+
+          <!-- Input-field- baby full name -->
+          <ion-item lines="full">
+            <ion-label position="floating">Baby Full Name:
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-input type="text" formControlName="name"></ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.name">
+              <div class="error-message" *ngIf="mvalidations_form.get('name').hasError(validation.type) && (mvalidations_form.get('name').dirty || mvalidations_form.get('name').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>       
+        
+            <!-- Baby Gender -->
+            <ion-item lines="full">
+              <ion-label position="floating">Baby Gender:
+                <font class = "CompulsoryMsg">*</font>
+              </ion-label>
+              <ion-select formControlName="gender" cancelText="Cancel" okText="OK">
+                <ion-select-option *ngFor="let gender of genders" [value]="gender">{{gender}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.gender">
+                <div class="error-message" *ngIf="mvalidations_form.get('gender').hasError(validation.type) && (mvalidations_form.get('gender').dirty || mvalidations_form.get('gender').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>              
+                
+               <!-- State -->
+             <ion-item lines="full">
+              <ion-label position="floating">State of baby birth placed:
+                <font class = "CompulsoryMsg">*</font>
+              </ion-label>
+              <ion-select formControlName="state" cancelText="Cancel" okText="OK">
+                <ion-select-option *ngFor="let state of states" [value]="state">{{state}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.state">
+                <div class="error-message" *ngIf="mvalidations_form.get('state').hasError(validation.type) && (mvalidations_form.get('state').dirty || mvalidations_form.get('state').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
+
+                <!-- Birth Date -->
+          <ion-item lines="full">
+            <ion-label position="floating">Baby Birth Date:
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-datetime [min]="minDate" [max]="maxDate" formControlName="birthdate"></ion-datetime>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.birthdate">
+              <div class="error-message" *ngIf="mvalidations_form.get('birthdate').hasError(validation.type) && (mvalidations_form.get('birthdate').dirty || mvalidations_form.get('birthdate').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>           
+
+          <!-- Birth Time -->
+          <ion-item lines="full">
+            <ion-label position="floating">Baby Birth Time:
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-datetime formControlName="birthtime" displayFormat="hh-mm-A"></ion-datetime>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.birthtime">
+              <div class="error-message" *ngIf="mvalidations_form.get('birthtime').hasError(validation.type) && (mvalidations_form.get('birthtime').dirty || mvalidations_form.get('birthtime').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>          
+
+          <!-- Upload Front of FatherIC -->
+          <ion-item lines="full">
+            <ion-label position="stacked"> Copy of Front Father IC:
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-input formControlName="frontfatic" type="file" accept="image/*,.pdf"
+            (change)="uploadfrofaicFile($event.target.files)" ></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.frontfatic">
+                <div class="error-message" *ngIf="mvalidations_form.get('frontfatic').hasError(validation.type) && (mvalidations_form.get('frontfatic').dirty || mvalidations_form.get('frontfatic').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
+
+          <!-- Upload Back of FatherIC -->
+          <ion-item lines="full">
+            <ion-label position="stacked"> Copy of Back Father IC:
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-input formControlName="backfatic" type="file" accept="image/*,.pdf"
+            (change)="uploadbacfaicFile($event.target.files)" ></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.backfatic">
+                <div class="error-message" *ngIf="mvalidations_form.get('backfatic').hasError(validation.type) && (mvalidations_form.get('backfatic').dirty || mvalidations_form.get('backfatic').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
+
+
+             <!-- Upload Front of MotherIC -->
+          <ion-item lines="full">
+            <ion-label position="stacked"> Copy of Front Mother IC:
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-input formControlName="frontmotic" type="file" accept="image/*,.pdf"
+            (change)="uploadfromoicFile($event.target.files)" ></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.frontmotic">
+                <div class="error-message" *ngIf="mvalidations_form.get('frontmotic').hasError(validation.type) && (mvalidations_form.get('frontmotic').dirty || mvalidations_form.get('frontmotic').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
+
+          <!-- Upload Back of MotherIC -->
+          <ion-item lines="full">
+            <ion-label position="stacked"> Copy of Back Mother IC:
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-input formControlName="backmotic" type="file" accept="image/*,.pdf"
+            (change)="uploadbackmoicFile($event.target.files)" ></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.backmotic">
+                <div class="error-message" *ngIf="mvalidations_form.get('backmotic').hasError(validation.type) && (mvalidations_form.get('backmotic').dirty || mvalidations_form.get('backmotic').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
+
+            <!-- Upload Marry Certificate -->
+            <ion-item lines="full">
+              <ion-label position="stacked"> Marry Certificate (Copy):
+                <font class = "CompulsoryMsg">*</font>
+              </ion-label>
+              <ion-input  formControlName="marrycer" type= "file"
+              class="upload" (change)="uploadmacerFile($event.target.files)" 
+              accept="image/*,.pdf">
+              </ion-input>
+              </ion-item>
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.marrycer">
+                  <div class="error-message" *ngIf="mvalidations_form.get('marrycer').hasError(validation.type) && (mvalidations_form.get('marrycer').dirty || mvalidations_form.get('marrycer').touched)">
+                    <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                  </div>
+                </ng-container>
+              </div>
+
+               <!-- Upload Death Certificate For Father-->
+            <ion-item lines="full">
+              <ion-label position="stacked">(If Applicable) Death Certificate For Father (Copy) :
+              </ion-label>
+              <ion-input  formControlName="fatherdeath" type= "file"
+              class="upload" (change)="uploadfadeFile($event.target.files)" 
+              accept="image/*,.pdf">
+              </ion-input>
+              </ion-item>
+        
+
+              <!-- Upload Death Certificate For Father-->
+            <ion-item lines="full">
+              <ion-label position="stacked">(If Applicable) Death Certificate For Mother (Copy) :
+              </ion-label>
+              <ion-input  formControlName="motherdeath" type= "file"
+              class="upload" (change)="uploadmodeFile($event.target.files)" 
+              accept="image/*,.pdf">
+              </ion-input>
+              </ion-item>
+                         
+
+            <!-- Upload Kad Pranatal/Kad Rawatan Semasa Ibu Mengandung/Surat akuan AM80 -->
+                <ion-item lines="full">
+                  <ion-label position="stacked"> Kad Pranatal/Kad Rawatan Semasa Ibu Mengandung/Surat akuan AM80  (Copy):
+                    <font class = "CompulsoryMsg">*</font>
+                  </ion-label>
+                  <ion-input  formControlName="caletter" type= "file"
+                  class="upload" (change)="uploadcaleFile($event.target.files)" 
+                  accept="image/*,.pdf">
+                  </ion-input>
+                  </ion-item>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validation_messages.caletter">
+                      <div class="error-message" *ngIf="mvalidations_form.get('caletter').hasError(validation.type) && (mvalidations_form.get('caletter').dirty || mvalidations_form.get('caletter').touched)">
+                        <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+
+                      <!-- Upload Polis Report -->
+                <ion-item lines="full">
+                  <ion-label position="stacked"> Police Report  (Copy):
+                    <font class = "CompulsoryMsg">*</font>
+                  </ion-label>
+                  <ion-input  formControlName="poreport" type= "file"
+                  class="upload" (change)="uploadporeFile($event.target.files)" 
+                  accept="image/*,.pdf">
+                  </ion-input>
+                  </ion-item>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validation_messages.poreport">
+                      <div class="error-message" *ngIf="mvalidations_form.get('poreport').hasError(validation.type) && (mvalidations_form.get('poreport').dirty || mvalidations_form.get('poreport').touched)">
+                        <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+
+               
+                <div class="ion-padding">
+                   <!-- Back Button -->
+                  <ion-button expand="medium" color="danger" (click)="exitwebhome()">
+                    Cancel  <ion-icon name="ban-outline" slot="end"></ion-icon>
+                  </ion-button>
+                  <!-- Submit Button -->
+                  <ion-button type="submit" expand="medium" [disabled]="!mvalidations_form.valid">
+                    Submit  <ion-icon name="send" slot="end"></ion-icon>
+                  </ion-button>
+                </div> 
+
+                </form>
+                </ion-card-content>            
+          </ng-template>
+        </ng-template>
+
+          <!-- Birth in hospital form -->
+          <ng-template #hospitalform>
+            <!-- Web version Form -->
+          <ng-template [ngIf]="webversion">
+            <ion-card-content>
+              <form [formGroup]="webhospital_form" (ngSubmit)="registerwebhosbirth(webhospital_form)">
+              
+              <!-- Input-field-motheric -->
+              <ion-item lines="full">
+                <ion-label position="floating"> Mother Identification Card Number :
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input type="text" formControlName="motheric" [placeholder]="'New NRIC No.'"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.motheric">
+                    <div class="error-message" *ngIf="webhospital_form.get('motheric').hasError(validation.type) && (webhospital_form.get('motheric').dirty || webhospital_form.get('motheric').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+
+                   <!-- Input-field-mother Name -->
+              <ion-item lines="full">
+                <ion-label position="floating"> Mother Full Name :
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input type="text" formControlName="mothername"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.mothername">
+                    <div class="error-message" *ngIf="webhospital_form.get('mothername').hasError(validation.type) && (webhospital_form.get('mothername').dirty || webhospital_form.get('mothername').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+
+                <!-- Input-field-fatheric -->
+              <ion-item lines="full">
+                <ion-label position="floating"> Father Identification Card Number :
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input type="text" formControlName="fatheric" [placeholder]="'New NRIC No.'"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.fatheric">
+                    <div class="error-message" *ngIf="webhospital_form.get('fatheric').hasError(validation.type) && (webhospital_form.get('fatheric').dirty || webhospital_form.get('fatheric').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+
+              <!-- Input-field-fathername -->
+              <ion-item lines="full">
+                <ion-label position="floating"> Father Full Name :
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input type="text" formControlName="fathername"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.fathername">
+                    <div class="error-message" *ngIf="webhospital_form.get('fathername').hasError(validation.type) && (webhospital_form.get('fathername').dirty || webhospital_form.get('fathername').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+
+                <!-- Input-field-email -->
+              <ion-item lines="full">
+                <ion-label position="floating"> Mother/Father Email Address :
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input type="text" formControlName="email" [placeholder]="'Exp:john@mail.com'"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.email">
+                    <div class="error-message" *ngIf="webhospital_form.get('email').hasError(validation.type) && (webhospital_form.get('email').dirty || webhospital_form.get('email').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+
+
+                  <!-- Phone Section -->
+                  <div formGroupName="country_phone">
+                    <!-- Input-field-country code -->
+                    <ion-item lines="full">
+                    <ion-label position="floating"> Country:
+                      <font class = "CompulsoryMsg">*</font>
+                    </ion-label>
+                    <ion-select formControlName="country" cancelText="Cancel" okText="OK">
+                      <ion-select-option *ngFor="let item of countries" [value]="item">{{item.name}}</ion-select-option>
+                    </ion-select>
+                  </ion-item>
+  
+                  <!-- Input-field-Telephone number -->
+                  <ion-item lines="full">
+                    <ion-label position="floating"> Mother/Father Telephone:
+                      <font class = "CompulsoryMsg">*</font>
+                    </ion-label>
+                  <ion-input placeholder="{{ webhospital_form.value.country_phone.country.sample_phone }}" type="text" formControlName="phone"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.phone">
+                    <div class="error-message" *ngIf="webhospital_form.get('country_phone').get('phone').hasError(validation.type) && (webhospital_form.get('country_phone').get('phone').dirty || webhospital_form.get('country_phone').get('phone').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                  </div>
+                  </div>
+
+          <!-- Input-field- baby full name -->
+          <ion-item lines="full">
+            <ion-label position="floating">Baby Full Name:
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-input type="text" formControlName="name"></ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.name">
+              <div class="error-message" *ngIf="webhospital_form.get('name').hasError(validation.type) && (webhospital_form.get('name').dirty || webhospital_form.get('name').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>       
+        
+            <!-- Baby Gender -->
+            <ion-item lines="full">
+              <ion-label position="floating">Baby Gender:
+                <font class = "CompulsoryMsg">*</font>
+              </ion-label>
+              <ion-select formControlName="gender" cancelText="Cancel" okText="OK">
+                <ion-select-option *ngFor="let gender of genders" [value]="gender">{{gender}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.gender">
+                <div class="error-message" *ngIf="webhospital_form.get('gender').hasError(validation.type) && (webhospital_form.get('gender').dirty || webhospital_form.get('gender').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>                
+
+               <!-- State -->
+             <ion-item lines="full">
+              <ion-label position="floating">State of baby birth placed:
+                <font class = "CompulsoryMsg">*</font>
+              </ion-label>
+              <ion-select formControlName="state" cancelText="Cancel" okText="OK">
+                <ion-select-option *ngFor="let state of states" [value]="state">{{state}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.state">
+                <div class="error-message" *ngIf="webhospital_form.get('state').hasError(validation.type) && (webhospital_form.get('state').dirty || webhospital_form.get('state').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
+
+          <!-- Birth Date -->
+          <ion-item lines="full">
+            <ion-label position="floating">Baby Birth Date:
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-datetime formControlName="birthdate"></ion-datetime>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.birthdate">
+              <div class="error-message" *ngIf="webhospital_form.get('birthdate').hasError(validation.type) && (webhospital_form.get('birthdate').dirty || webhospital_form.get('birthdate').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>  
+          
+          <!-- Birth Time -->
+          <ion-item lines="full">
+            <ion-label position="floating">Baby Birth Time:
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-datetime formControlName="birthtime" displayFormat="hh-mm-A"></ion-datetime>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.birthtime">
+              <div class="error-message" *ngIf="webhospital_form.get('birthtime').hasError(validation.type) && (webhospital_form.get('birthtime').dirty || webhospital_form.get('birthtime').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>          
+
+                <!-- Upload FatherIC -->
+                <ion-item lines="full">
+                  <ion-label position="stacked"> Father Identification Card Number (Copy):
+                    <font class = "CompulsoryMsg">*</font>
+                  </ion-label>
+                  <ion-input  formControlName="fathercopyic" type= "file"
+                  class="upload" (change)="uploadfaicFile($event.target.files)" 
+                  accept="image/*,.pdf">
+                  </ion-input>
+                  </ion-item>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validation_messages.fathercopyic">
+                      <div class="error-message" *ngIf="webhospital_form.get('fathercopyic').hasError(validation.type) && (webhospital_form.get('fathercopyic').dirty || webhospital_form.get('fathercopyic').touched)">
+                        <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+
+
+                    <!-- Upload MotherIC -->
+                <ion-item lines="full">
+                  <ion-label position="stacked"> Mother Identification Card Number (Copy):
+                    <font class = "CompulsoryMsg">*</font>
+                  </ion-label>
+                  <ion-input  formControlName="mothercopyic" type= "file"
+                  class="upload" (change)="uploadmoicFile($event.target.files)" 
+                  accept="image/*,.pdf">
+                  </ion-input>
+                  </ion-item>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validation_messages.mothercopyic">
+                      <div class="error-message" *ngIf="webhospital_form.get('mothercopyic').hasError(validation.type) && (webhospital_form.get('mothercopyic').dirty || webhospital_form.get('mothercopyic').touched)">
+                        <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+
+                  <!-- Upload Marry Certificate -->
+                <ion-item lines="full">
+                  <ion-label position="stacked"> Marry Certificate (Copy):
+                    <font class = "CompulsoryMsg">*</font>
+                  </ion-label>
+                  <ion-input  formControlName="marrycer" type= "file"
+                  class="upload" (change)="uploadmacerFile($event.target.files)" 
+                  accept="image/*,.pdf">
+                  </ion-input>
+                  </ion-item>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validation_messages.marrycer">
+                      <div class="error-message" *ngIf="webhospital_form.get('marrycer').hasError(validation.type) && (webhospital_form.get('marrycer').dirty || webhospital_form.get('marrycer').touched)">
+                        <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+
+                   <!-- Upload Death Certificate For Father-->
+                <ion-item lines="full">
+                  <ion-label position="stacked">(If Applicable) Death Certificate For Father (Copy) :
+                  </ion-label>
+                  <ion-input  formControlName="fatherdeath" type= "file"
+                  class="upload" (change)="uploadfadeFile($event.target.files)" 
+                  accept="image/*,.pdf">
+                  </ion-input>
+                  </ion-item>
+            
+
+                  <!-- Upload Death Certificate For Father-->
+                <ion-item lines="full">
+                  <ion-label position="stacked">(If Applicable) Death Certificate For Mother (Copy) :
+                  </ion-label>
+                  <ion-input  formControlName="motherdeath" type= "file"
+                  class="upload" (change)="uploadmodeFile($event.target.files)" 
+                  accept="image/*,.pdf">
+                  </ion-input>
+                  </ion-item>
+
+                <!-- Upload Doctor Letter Confirmation -->
+                <ion-item lines="full">
+                  <ion-label position="stacked"> Doctor Letter Confirmation (Copy):
+                    <font class = "CompulsoryMsg">*</font>
+                  </ion-label>
+                  <ion-input  formControlName="docletter" type= "file"
+                  class="upload" (change)="uploaddocletFile($event.target.files)" 
+                  accept="image/*,.pdf">
+                  </ion-input>
+                  </ion-item>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validation_messages.docletter">
+                      <div class="error-message" *ngIf="webhospital_form.get('docletter').hasError(validation.type) && (webhospital_form.get('docletter').dirty || webhospital_form.get('docletter').touched)">
+                        <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+
+                  <!-- Upload Kad Pranatal/Kad Rawatan Semasa Ibu Mengandung/Surat akuan AM80 -->
+                <ion-item lines="full">
+                  <ion-label position="stacked"> Kad Pranatal/Kad Rawatan Semasa Ibu Mengandung/Surat akuan AM80  (Copy):
+                    <font class = "CompulsoryMsg">*</font>
+                  </ion-label>
+                  <ion-input  formControlName="caletter" type= "file"
+                  class="upload" (change)="uploadcaleFile($event.target.files)" 
+                  accept="image/*,.pdf">
+                  </ion-input>
+                  </ion-item>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validation_messages.caletter">
+                      <div class="error-message" *ngIf="webhospital_form.get('caletter').hasError(validation.type) && (webhospital_form.get('caletter').dirty || webhospital_form.get('caletter').touched)">
+                        <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+               
+                <div class="ion-padding">
+                   <!-- Back Button -->
+                  <ion-button expand="medium" color="danger" (click)="exitwebhospital()">
+                    Cancel  <ion-icon name="ban-outline" slot="end"></ion-icon>
+                  </ion-button>
+                  <!-- Submit Button -->
+                  <ion-button type="submit" expand="medium" [disabled]="!webhospital_form.valid">
+                    Submit  <ion-icon name="send" slot="end"></ion-icon>
+                  </ion-button>
+                </div> 
+                </form>
+                </ion-card-content>   
+          </ng-template>
+           <!-- Mobile version Form -->
+          <ng-template [ngIf]="mobileversion">
+            <ion-card-content>
+              <form [formGroup]="mobilehospital_form" (ngSubmit)="mobilehosbirth(mobilehospital_form)">
+              
+              <!-- Input-field-motheric -->
+              <ion-item lines="full">
+                <ion-label position="floating"> Mother Identification Card Number :
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input type="text" formControlName="motheric" [placeholder]="'New NRIC No.'"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.motheric">
+                    <div class="error-message" *ngIf="mobilehospital_form.get('motheric').hasError(validation.type) && (mobilehospital_form.get('motheric').dirty || mobilehospital_form.get('motheric').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+
+                   <!-- Input-field-mother Name -->
+              <ion-item lines="full">
+                <ion-label position="floating"> Mother Full Name :
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input type="text" formControlName="mothername"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.mothername">
+                    <div class="error-message" *ngIf="mobilehospital_form.get('mothername').hasError(validation.type) && (mobilehospital_form.get('mothername').dirty || mobilehospital_form.get('mothername').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+
+                <!-- Input-field-fatheric -->
+              <ion-item lines="full">
+                <ion-label position="floating"> Father Identification Card Number :
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input type="text" formControlName="fatheric" [placeholder]="'New NRIC No.'"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.fatheric">
+                    <div class="error-message" *ngIf="mobilehospital_form.get('fatheric').hasError(validation.type) && (mobilehospital_form.get('fatheric').dirty || mobilehospital_form.get('fatheric').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+
+              <!-- Input-field-fathername -->
+              <ion-item lines="full">
+                <ion-label position="floating"> Father Full Name :
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input type="text" formControlName="fathername"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.fathername">
+                    <div class="error-message" *ngIf="mobilehospital_form.get('fathername').hasError(validation.type) && (mobilehospital_form.get('fathername').dirty || mobilehospital_form.get('fathername').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+
+                <!-- Input-field-email -->
+              <ion-item lines="full">
+                <ion-label position="floating"> Mother/Father Email Address :
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input type="text" formControlName="email" [placeholder]="'Exp:john@mail.com'"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.email">
+                    <div class="error-message" *ngIf="mobilehospital_form.get('email').hasError(validation.type) && (mobilehospital_form.get('email').dirty || mobilehospital_form.get('email').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+
+
+                  <!-- Phone Section -->
+                  <div formGroupName="country_phone">
+                    <!-- Input-field-country code -->
+                    <ion-item lines="full">
+                    <ion-label position="floating"> Country:
+                      <font class = "CompulsoryMsg">*</font>
+                    </ion-label>
+                    <ion-select formControlName="country" cancelText="Cancel" okText="OK">
+                      <ion-select-option *ngFor="let item of countries" [value]="item">{{item.name}}</ion-select-option>
+                    </ion-select>
+                  </ion-item>
+  
+                  <!-- Input-field-Telephone number -->
+                  <ion-item lines="full">
+                    <ion-label position="floating"> Mother/Father Telephone:
+                      <font class = "CompulsoryMsg">*</font>
+                    </ion-label>
+                  <ion-input placeholder="{{ mobilehospital_form.value.country_phone.country.sample_phone }}" type="text" formControlName="phone" ></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.phone">
+                    <div class="error-message" *ngIf="mobilehospital_form.get('country_phone').get('phone').hasError(validation.type) && (mobilehospital_form.get('country_phone').get('phone').dirty || mobilehospital_form.get('country_phone').get('phone').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                  </div>
+                  </div>
+
+          <!-- Input-field- baby full name -->
+          <ion-item lines="full">
+            <ion-label position="floating">Baby Full Name:
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-input type="text" formControlName="name"></ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.name">
+              <div class="error-message" *ngIf="mobilehospital_form.get('name').hasError(validation.type) && (mobilehospital_form.get('name').dirty || mobilehospital_form.get('name').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>       
+        
+            <!-- Baby Gender -->
+            <ion-item lines="full">
+              <ion-label position="floating">Baby Gender:
+                <font class = "CompulsoryMsg">*</font>
+              </ion-label>
+              <ion-select formControlName="gender" cancelText="Cancel" okText="OK">
+                <ion-select-option *ngFor="let gender of genders" [value]="gender">{{gender}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.gender">
+                <div class="error-message" *ngIf="mobilehospital_form.get('gender').hasError(validation.type) && (mobilehospital_form.get('gender').dirty || mobilehospital_form.get('gender').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>                
+
+               <!-- State -->
+             <ion-item lines="full">
+              <ion-label position="floating">State of baby birth placed:
+                <font class = "CompulsoryMsg">*</font>
+              </ion-label>
+              <ion-select formControlName="state" cancelText="Cancel" okText="OK">
+                <ion-select-option *ngFor="let state of states" [value]="state">{{state}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.state">
+                <div class="error-message" *ngIf="mobilehospital_form.get('state').hasError(validation.type) && (mobilehospital_form.get('state').dirty || mobilehospital_form.get('state').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
+
+          <!-- Birth Date -->
+          <ion-item lines="full">
+            <ion-label position="floating">Baby Birth Date:
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-datetime formControlName="birthdate"></ion-datetime>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.birthdate">
+              <div class="error-message" *ngIf="mobilehospital_form.get('birthdate').hasError(validation.type) && (mobilehospital_form.get('birthdate').dirty || mobilehospital_form.get('birthdate').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>  
+          
+          <!-- Birth Time -->
+          <ion-item lines="full">
+            <ion-label position="floating">Baby Birth Time:
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-datetime formControlName="birthtime" displayFormat="hh-mm-A"></ion-datetime>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.birthtime">
+              <div class="error-message" *ngIf="mobilehospital_form.get('birthtime').hasError(validation.type) && (mobilehospital_form.get('birthtime').dirty || mobilehospital_form.get('birthtime').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>          
+
+            <!-- Upload Front of FatherIC -->
+          <ion-item lines="full">
+            <ion-label position="stacked"> Copy of Front Father IC:
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-input formControlName="frontfatic" type="file" accept="image/*,.pdf"
+            (change)="uploadfrofaicFile($event.target.files)" ></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.frontfatic">
+                <div class="error-message" *ngIf="mvalidations_form.get('frontfatic').hasError(validation.type) && (mobilehospital_form.get('frontfatic').dirty || mobilehospital_form.get('frontfatic').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
+
+          <!-- Upload Back of FatherIC -->
+          <ion-item lines="full">
+            <ion-label position="stacked"> Copy of Back Father IC:
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-input formControlName="backfatic" type="file" accept="image/*,.pdf"
+            (change)="uploadbacfaicFile($event.target.files)" ></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.backfatic">
+                <div class="error-message" *ngIf="mobilehospital_form.get('backfatic').hasError(validation.type) && (mobilehospital_form.get('backfatic').dirty || mobilehospital_form.get('backfatic').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
+
+
+             <!-- Upload Front of MotherIC -->
+          <ion-item lines="full">
+            <ion-label position="stacked"> Copy of Front Mother IC:
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-input formControlName="frontmotic" type="file" accept="image/*,.pdf"
+            (change)="uploadfromoicFile($event.target.files)" ></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.frontmotic">
+                <div class="error-message" *ngIf="mobilehospital_form.get('frontmotic').hasError(validation.type) && (mobilehospital_form.get('frontmotic').dirty || mobilehospital_form.get('frontmotic').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
+
+          <!-- Upload Back of MotherIC -->
+          <ion-item lines="full">
+            <ion-label position="stacked"> Copy of Back Mother IC:
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-input formControlName="backmotic" type="file" accept="image/*,.pdf"
+            (change)="uploadbackmoicFile($event.target.files)"> </ion-input>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.backmotic">
+                <div class="error-message" *ngIf="mobilehospital_form.get('backmotic').hasError(validation.type) && (mobilehospital_form.get('backmotic').dirty || mobilehospital_form.get('backmotic').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
+
+               <!-- Upload Marry Certificate -->
+               <ion-item lines="full">
+                <ion-label position="stacked"> Marry Certificate (Copy):
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input  formControlName="marrycer" type= "file"
+                class="upload" (change)="uploadmacerFile($event.target.files)" 
+                accept="image/*,.pdf">
+                </ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.marrycer">
+                    <div class="error-message" *ngIf="mobilehospital_form.get('marrycer').hasError(validation.type) && (mobilehospital_form.get('marrycer').dirty || mobilehospital_form.get('marrycer').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+
+                 <!-- Upload Death Certificate For Father-->
+              <ion-item lines="full">
+                <ion-label position="stacked">(If Applicable) Death Certificate For Father (Copy) :
+                </ion-label>
+                <ion-input  formControlName="fatherdeath" type= "file"
+                class="upload" (change)="uploadfadeFile($event.target.files)" 
+                accept="image/*,.pdf">
+                </ion-input>
+                </ion-item>
+          
+
+                <!-- Upload Death Certificate For Father-->
+              <ion-item lines="full">
+                <ion-label position="stacked">(If Applicable) Death Certificate For Mother (Copy) :
+                </ion-label>
+                <ion-input  formControlName="motherdeath" type= "file"
+                class="upload" (change)="uploadmodeFile($event.target.files)" 
+                accept="image/*,.pdf">
+                </ion-input>
+                </ion-item>
+
+                <!-- Upload Doctor Letter Confirmation -->
+                <ion-item lines="full">
+                  <ion-label position="stacked"> Doctor Letter Confirmation (Copy):
+                    <font class = "CompulsoryMsg">*</font>
+                  </ion-label>
+                  <ion-input  formControlName="docletter" type= "file"
+                  class="upload" (change)="uploaddocletFile($event.target.files)" 
+                  accept="image/*,.pdf">
+                  </ion-input>
+                  </ion-item>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validation_messages.docletter">
+                      <div class="error-message" *ngIf="mobilehospital_form.get('docletter').hasError(validation.type) && (mobilehospital_form.get('docletter').dirty || mobilehospital_form.get('docletter').touched)">
+                        <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+
+                  <!-- Upload Kad Pranatal/Kad Rawatan Semasa Ibu Mengandung/Surat akuan AM80 -->
+                <ion-item lines="full">
+                  <ion-label position="stacked"> Kad Pranatal/Kad Rawatan Semasa Ibu Mengandung/Surat akuan AM80  (Copy):
+                    <font class = "CompulsoryMsg">*</font>
+                  </ion-label>
+                  <ion-input  formControlName="caletter" type= "file"
+                  class="upload" (change)="uploadcaleFile($event.target.files)" 
+                  accept="image/*,.pdf">
+                  </ion-input>
+                  </ion-item>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validation_messages.caletter">
+                      <div class="error-message" *ngIf="mobilehospital_form.get('caletter').hasError(validation.type) && (mobilehospital_form.get('caletter').dirty || mobilehospital_form.get('caletter').touched)">
+                        <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+               
+                <div class="ion-padding">
+                   <!-- Back Button -->
+                  <ion-button expand="medium" color="danger" (click)="exitwebhospital()">
+                    Cancel  <ion-icon name="ban-outline" slot="end"></ion-icon>
+                  </ion-button>
+                  <!-- Submit Button -->
+                  <ion-button type="submit" expand="medium" [disabled]="!mobilehospital_form.valid">
+                    Submit  <ion-icon name="send" slot="end"></ion-icon>
+                  </ion-button>
+                </div> 
+                     
+                </form>
+                </ion-card-content>
+          </ng-template>
+        
+          </ng-template>
+
+
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+</div>
+</ion-content>

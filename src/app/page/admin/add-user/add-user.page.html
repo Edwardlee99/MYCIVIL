@@ -1,0 +1,214 @@
+<!-- Add User Page -->
+<ion-header>
+  <ion-toolbar color="primary" mode="md">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Add Citizen Page</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- Form & Welcome Message -->
+<ion-content>
+  <ion-grid class="main-grid ion-no-padding">
+    <ion-row>
+      <ion-col size="12" size-md="8" offset-md="2">
+        <ion-card>  
+          <ion-card-content class="ion-no-padding">
+            <form [formGroup]="validations_form" (ngSubmit)="onSubmit(validations_form)">
+
+
+          <!-- Input-field-ic -->
+          <ion-item lines="full">
+            <ion-label position="floating"> Identification Card Number :
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-input type="text" formControlName="ic" [placeholder]="'New NRIC No.'"></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.ic">
+                <div class="error-message" *ngIf="validations_form.get('ic').hasError(validation.type) && (validations_form.get('ic').dirty || validations_form.get('ic').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
+
+        <!-- Birth Certificate No. -->
+        <ion-item lines="full">
+          <ion-label position="floating">Birth Certificate No.:
+            <font class = "CompulsoryMsg">*</font>
+          </ion-label>
+          <ion-input type="text" formControlName="birth"></ion-input>
+        </ion-item>
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of validation_messages.birth">
+            <div class="error-message" *ngIf="validations_form.get('birth').hasError(validation.type) && (validations_form.get('birth').dirty || validations_form.get('birth').touched)">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </div>
+          </ng-container>
+        </div>
+          
+
+         <!-- Input-field-full name -->
+         <ion-item lines="full">
+          <ion-label position="floating"> Full Name:
+            <font class = "CompulsoryMsg">*</font>
+          </ion-label>
+          <ion-input type="text" formControlName="name" [placeholder]="'Full Name as per NRIC'"></ion-input>
+        </ion-item>
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of validation_messages.name">
+            <div class="error-message" *ngIf="validations_form.get('name').hasError(validation.type) && (validations_form.get('name').dirty || validations_form.get('name').touched)">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </div>
+          </ng-container>
+        </div>
+        
+        <!-- Gender -->
+        <ion-item lines="full">
+          <ion-label position="floating">Gender:
+            <font class = "CompulsoryMsg">*</font>
+          </ion-label>
+          <ion-select formControlName="gender" cancelText="Cancel" okText="OK">
+            <ion-select-option *ngFor="let gender of genders" [value]="gender">{{gender}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of validation_messages.gender">
+            <div class="error-message" *ngIf="validations_form.get('gender').hasError(validation.type) && (validations_form.get('gender').dirty || validations_form.get('gender').touched)">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </div>
+          </ng-container>
+        </div>
+
+          <!-- Race -->
+          <ion-item lines="full">
+            <ion-label position="floating">Race:
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-select #mySelect1 formControlName="race" cancelText="Cancel" okText="OK"  
+            (ionChange)="selectChangedRace(mySelect1.value)" >
+              <ion-select-option *ngFor="let race of races" [value]="race">{{race}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of validation_messages.race">
+            <div class="error-message" *ngIf="validations_form.get('race').hasError(validation.type) && (validations_form.get('race').dirty || validations_form.get('race').touched)">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </div>
+          </ng-container>
+        </div>
+
+          <!-- Religion -->
+          <ion-item lines="full">
+            <ion-label position="floating">Religion:
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-select #mySelect formControlName="religion" cancelText="Cancel" okText="OK"
+            (ionChange)="selectChangedReligion(mySelect.value)">
+              <ion-select-option *ngFor="let religion of religions" [value]="religion" >
+              {{religion}} </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.religion">
+              <div class="error-message" *ngIf="validations_form.get('religion').hasError(validation.type) && (validations_form.get('religion').dirty || validations_form.get('religion').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+          
+          
+          <!-- Birth Date -->
+          <ion-item lines="full">
+            <ion-label position="floating">Birth Date:
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-datetime formControlName="birthdate"></ion-datetime>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.birthdate">
+              <div class="error-message" *ngIf="validations_form.get('birthdate').hasError(validation.type) && (validations_form.get('birthdate').dirty || validations_form.get('birthdate').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+
+          <!-- Address -->
+          <ion-item lines="full">
+            <ion-label position="floating">Address:
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-input type="text" formControlName="address"></ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.address">
+              <div class="error-message" *ngIf="validations_form.get('address').hasError(validation.type) && (validations_form.get('address').dirty || validations_form.get('address').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+
+          <!-- City -->
+          <ion-item lines="full">
+            <ion-label position="floating">City:
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-input type="text" formControlName="city"></ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.city">
+              <div class="error-message" *ngIf="validations_form.get('city').hasError(validation.type) && (validations_form.get('city').dirty || validations_form.get('city').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+
+
+            <!-- Postcode -->
+               <ion-item lines="full">
+                <ion-label position="floating">Postcode:
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input type="text" formControlName="postcode"></ion-input>
+              </ion-item>
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.postcode">
+                  <div class="error-message" *ngIf="validations_form.get('postcode').hasError(validation.type) && (validations_form.get('postcode').dirty || validations_form.get('postcode').touched)">
+                    <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                  </div>
+                </ng-container>
+              </div>
+
+             <!-- State -->
+             <ion-item lines="full">
+              <ion-label position="floating">State:
+                <font class = "CompulsoryMsg">*</font>
+              </ion-label>
+              <ion-select formControlName="state" cancelText="Cancel" okText="OK">
+                <ion-select-option *ngFor="let state of states" [value]="state">{{state}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.state">
+                <div class="error-message" *ngIf="validations_form.get('state').hasError(validation.type) && (validations_form.get('state').dirty || validations_form.get('state').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
+             
+         <!-- Submit Button -->
+         <div class="ion-padding">
+          <ion-button type="submit" expand="full" [disabled]="!validations_form.valid">
+            Submit  <ion-icon name="send" slot="end"></ion-icon>
+          </ion-button>
+         </div>
+        </form>
+       </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+

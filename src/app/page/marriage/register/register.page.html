@@ -1,0 +1,629 @@
+<ion-header>
+  <ion-toolbar mode="md" color="primary">
+    <ion-title>Register Marriage</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="glob-container">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-xs="12" size-md="5" push-md="7">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title color="danger" class="text-bold">Important Notice</ion-card-title>
+            </ion-card-header>
+            <ion-card-content class="ion-padding-top">
+              <ion-text>
+                <p>
+                  This register marriage service is for age 21 above only, it will need your following attachment: 
+                </p>
+                <ul>
+                  <li>Both of Couple of Idetification Card</li>
+                  <li>Both of Couple of Birth Certificate</li>
+                  <li>Both of Photo (Background in Blue Colour or White Colour)</li>
+                  <li>Divorce Certificate (IF applicable)</li>
+                  <li>Death Certificate (IF applicable)</li>
+                  <li>Surat Pengesahan Taraf Perkahwinan yang dikeluarkan oleh Kerajaannya</li>
+                  <ul>
+                    <li>Perlu disahkan oleh pihak perwakilan Malaysia di negara pemohon atau kedutaan negara pemohon di Malaysia DAN</li>
+                    <li>Disahkan semula oleh Kementerian Luar Negeri (Wisma Putra) di Putrajaya, Kuching atau Kota Kinabalu.</li>
+                  </ul>
+                </ul>  
+                <br>
+                <ion-text color="danger">
+                  <p>
+                   The attachment can only accept pdf file format and picture or image format. 
+                  </p>
+                </ion-text>
+                  <br>
+                  <ion-text color="danger">
+                    <p>
+                      Please make sure the image or picture format attachment is clear while it is not clear we will fail your approval status!!!
+                    </p>
+                  </ion-text>
+                    <br>
+                    <ion-text color="danger">
+                      <p>
+                        Do not try to choose other than pdf file format and picture or image format to upload attachment. We can fail your approval status too!!!
+                      </p>
+                      <br>
+                    </ion-text>
+                    <p>
+                      This Service can be used for register idetification cards at <ion-text
+                      color="danger"> above 21 years old </ion-text>.
+                    </p>
+                    <br>
+                  <ion-text color="danger">
+                    <p>
+                     All other requirements like above 18 years old until 20 years or under 18 years old cannot be registered on here. Please go to the JPN Office respectively.
+                    </p>
+                  </ion-text>
+                    <br>
+                <ion-text color="danger">
+                  <p>
+                    If you have a question about register identification cards, you can use our
+                    <a tappable="true" class="text-bold" (click)="openOnlineFeedbackSystem()">Online Feedback System</a>
+                    to send your feedback to the person who is in charge.
+                  </p>
+                </ion-text>
+              </ion-text>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+        <ion-col size-xs="12" size-md="7" pull-md="5">
+          <ion-card>
+            <ion-card-header color="primary">
+              <ion-card-title>Register Marriage</ion-card-title>
+            </ion-card-header>
+            <span *ngIf="!checkstatus; else marry"> 
+          <!-- Web version Form -->
+          <ng-template [ngIf]="webversion">
+            <ion-card-content>
+              <form [formGroup]="validations_form" (ngSubmit)="marryregisterweb(validations_form)">
+              
+               <!-- Input-field-Man IC -->
+               <ion-item lines="full">
+                <ion-label position="floating"> Man Identification Card :
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input type="text" formControlName="manic" [placeholder]="'New NRIC No.'"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.manic">
+                    <div class="error-message" *ngIf="validations_form.get('manic').hasError(validation.type) && (validations_form.get('manic').dirty || validations_form.get('manic').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+
+                  <!-- Input-field-Man Name -->
+              <ion-item lines="full">
+                <ion-label position="floating"> Man Full Name :
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input type="text" formControlName="manname"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.manname">
+                    <div class="error-message" *ngIf="validations_form.get('manname').hasError(validation.type) && (validations_form.get('manname').dirty || validations_form.get('manname').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+             
+             
+             
+                <!-- Input-field-Woman ic -->
+              <ion-item lines="full">
+                <ion-label position="floating"> Woman Identification Card :
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input type="text" formControlName="womanic" [placeholder]="'New NRIC No.'"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.womanic">
+                    <div class="error-message" *ngIf="validations_form.get('womanic').hasError(validation.type) && (validations_form.get('womanic').dirty || validations_form.get('womanic').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+
+                  <!-- Input-field-Woman Name -->
+              <ion-item lines="full">
+                <ion-label position="floating"> Woman Full Name :
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input type="text" formControlName="womanname"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.womanname">
+                    <div class="error-message" *ngIf="validations_form.get('womanname').hasError(validation.type) && (validations_form.get('womanname').dirty || validations_form.get('womanname').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+        
+          <!-- Upload Man IC -->
+          <ion-item lines="full">
+            <ion-label position="stacked"> Man Identification Card Number (Copy):
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-input  formControlName="mancopyic" type= "file"
+            class="upload" (change)="uploadcoicFile($event.target.files)" 
+            accept="image/*,.pdf">
+            </ion-input>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.mancopyic">
+                <div class="error-message" *ngIf="validations_form.get('mancopyic').hasError(validation.type) && (validations_form.get('mancopyic').dirty || validations_form.get('mancopyic').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+              </ng-container>
+            </div> 
+
+             <!-- Upload Woman IC -->
+          <ion-item lines="full">
+            <ion-label position="stacked"> Woman Identification Card Number (Copy):
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-input  formControlName="womancopyic" type= "file"
+            class="upload" (change)="uploadindcoicFile($event.target.files)" 
+            accept="image/*,.pdf">
+            </ion-input>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.womancopyic">
+                <div class="error-message" *ngIf="validations_form.get('womancopyic').hasError(validation.type) && (validations_form.get('womancopyic').dirty || validations_form.get('womancopyic').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>   
+            
+                <!-- Upload Man Birth Certificate -->
+                <ion-item lines="full">
+                  <ion-label position="stacked"> Man Birth Certificate (Copy):
+                    <font class = "CompulsoryMsg">*</font>
+                  </ion-label>
+                  <ion-input  formControlName="birthcer" type= "file"
+                  class="upload" (change)="uploadbircerFile($event.target.files)" 
+                  accept="image/*,.pdf">
+                  </ion-input>
+                  </ion-item>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validation_messages.birthcer">
+                      <div class="error-message" *ngIf="validations_form.get('birthcer').hasError(validation.type) && (validations_form.get('birthcer').dirty || validations_form.get('birthcer').touched)">
+                        <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+
+
+                   <!-- Upload Woman Birth Certificate -->
+                <ion-item lines="full">
+                  <ion-label position="stacked"> Woman Birth Certificate (Copy):
+                    <font class = "CompulsoryMsg">*</font>
+                  </ion-label>
+                  <ion-input  formControlName="womanbirthcer" type= "file"
+                  class="upload" (change)="uploadindbircerFile($event.target.files)" 
+                  accept="image/*,.pdf">
+                  </ion-input>
+                  </ion-item>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validation_messages.womanbirthcer">
+                      <div class="error-message" *ngIf="validations_form.get('womanbirthcer').hasError(validation.type) && (validations_form.get('womanbirthcer').dirty || validations_form.get('womanbirthcer').touched)">
+                        <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+
+                  <!-- Upload Man Photo -->
+                <ion-item lines="full">
+                  <ion-label position="stacked"> Upload Man Photo:
+                    <font class = "CompulsoryMsg">*</font>
+                  </ion-label>
+                  <ion-input  formControlName="manphoto" type= "file"
+                  class="upload" (change)="uploadphoFile($event.target.files)" 
+                  accept="image/*">
+                  </ion-input>
+                  </ion-item>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validation_messages.manphoto">
+                      <div class="error-message" *ngIf="validations_form.get('manphoto').hasError(validation.type) && (validations_form.get('manphoto').dirty || validations_form.get('manphoto').touched)">
+                        <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+
+                <!-- Upload Woman Photo -->
+                <ion-item lines="full">
+                  <ion-label position="stacked"> Upload Woman Photo:
+                    <font class = "CompulsoryMsg">*</font>
+                  </ion-label>
+                  <ion-input  formControlName="womanphoto" type= "file"
+                  class="upload" (change)="uploadindphoFile($event.target.files)" 
+                  accept="image/*">
+                  </ion-input>
+                  </ion-item>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validation_messages.womanphoto">
+                      <div class="error-message" *ngIf="validations_form.get('womanphoto').hasError(validation.type) && (validations_form.get('womanphoto').dirty || validations_form.get('womanphoto').touched)">
+                        <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+
+                   <!-- Upload Surat Pengesahan Taraf Perkahwinan -->
+                <ion-item lines="full">
+                  <ion-label position="stacked"> Upload Surat Pengesahan Taraf Perkahwinan:
+                    <font class = "CompulsoryMsg">*</font>
+                  </ion-label>
+                  <ion-input  formControlName="surat" type= "file"
+                  class="upload" (change)="uploadsuFile($event.target.files)" 
+                  accept="image/*,.pdf">
+                  </ion-input>
+                  </ion-item>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validation_messages.surat">
+                      <div class="error-message" *ngIf="validations_form.get('surat').hasError(validation.type) && (validations_form.get('surat').dirty || validations_form.get('surat').touched)">
+                        <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+
+                <!-- Upload Man's Wife Death Certificate -->
+                <ion-item lines="full">
+                  <ion-label position="stacked">(If Applicable) Man's Wife Death Certificate (Copy):
+                  </ion-label>
+                  <ion-input  formControlName="manwifedeath" type= "file"
+                  class="upload" (change)="uploadmanwdFile($event.target.files)" 
+                  accept="image/*,.pdf">
+                  </ion-input>
+                  </ion-item>
+                
+                  <!-- Upload Man Divorce Certificate -->
+                <ion-item lines="full">
+                  <ion-label position="stacked">(If Applicable) Man Divorce Certificate (Copy):
+                  </ion-label>
+                  <ion-input  formControlName="mandivorce" type= "file"
+                  class="upload" (change)="uploadmandiFile($event.target.files)" 
+                  accept="image/*,.pdf">
+                  </ion-input>
+                  </ion-item>
+                 
+
+                  <!-- Upload Man's Wife Death Certificate -->
+                <ion-item lines="full">
+                  <ion-label position="stacked">(If Applicable) Woman's Husband Death Certificate (Copy):
+                  </ion-label>
+                  <ion-input  formControlName="womanhusbanddeath" type= "file"
+                  class="upload" (change)="uploadwomanhdFile($event.target.files)" 
+                  accept="image/*,.pdf">
+                  </ion-input>
+                  </ion-item>
+                  
+
+                  <!-- Upload Woman Divorce Certificate -->
+                <ion-item lines="full">
+                  <ion-label position="stacked">(If Applicable) Woman Divorce Certificate (Copy):
+                  </ion-label>
+                  <ion-input  formControlName="womandivorce" type= "file"
+                  class="upload" (change)="uploadwomandiFile($event.target.files)" 
+                  accept="image/*,.pdf">
+                  </ion-input>
+                  </ion-item>
+ 
+                <div class="ion-padding">
+                  <!-- Submit Button -->
+                  <ion-button type="submit" expand="medium" [disabled]="!validations_form.valid">
+                    Submit  <ion-icon name="send" slot="end"></ion-icon>
+                  </ion-button>
+                </div> 
+
+                </form>
+                </ion-card-content>            
+          </ng-template>
+          
+           <!-- Mobile version Form -->
+          <ng-template [ngIf]="mobileversion">
+          <ion-card-content> 
+            <form [formGroup]="mvalidations_form" (ngSubmit)="marryregistermobile(mvalidations_form)">
+              
+           <!-- Input-field-Man IC -->
+           <ion-item lines="full">
+            <ion-label position="floating"> Man Identification Card :
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-input type="text" formControlName="manic" [placeholder]="'New NRIC No.'"></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.manic">
+                <div class="error-message" *ngIf="mvalidations_form.get('manic').hasError(validation.type) && (mvalidations_form.get('manic').dirty || mvalidations_form.get('manic').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
+
+              <!-- Input-field-Man Name -->
+          <ion-item lines="full">
+            <ion-label position="floating"> Man Full Name :
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-input type="text" formControlName="manname"></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.manname">
+                <div class="error-message" *ngIf="mvalidations_form.get('manname').hasError(validation.type) && (mvalidations_form.get('manname').dirty || mvalidations_form.get('manname').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
+         
+         
+         
+            <!-- Input-field-Woman ic -->
+          <ion-item lines="full">
+            <ion-label position="floating"> Woman Identification Card :
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-input type="text" formControlName="womanic" [placeholder]="'New NRIC No.'"></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.womanic">
+                <div class="error-message" *ngIf="mvalidations_form.get('womanic').hasError(validation.type) && (mvalidations_form.get('womanic').dirty || mvalidations_form.get('womanic').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
+
+              <!-- Input-field-Woman Name -->
+          <ion-item lines="full">
+            <ion-label position="floating"> Woman Full Name :
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-input type="text" formControlName="womanname"></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.womanname">
+                <div class="error-message" *ngIf="mvalidations_form.get('womanname').hasError(validation.type) && (mvalidations_form.get('womanname').dirty || mvalidations_form.get('womanname').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
+    
+      <!-- Upload Front Man IC -->
+      <ion-item lines="full">
+        <ion-label position="stacked"> Copy of Front Man IC:
+          <font class = "CompulsoryMsg">*</font>
+        </ion-label>
+        <ion-input  formControlName="frontmanic" type= "file"
+        class="upload" (change)="uploadfroownicFile($event.target.files)" 
+        accept="image/*,.pdf">
+        </ion-input>
+        </ion-item>
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of validation_messages.frontmanic">
+            <div class="error-message" *ngIf="mvalidations_form.get('frontmanic').hasError(validation.type) && (mvalidations_form.get('frontmanic').dirty || mvalidations_form.get('frontmanic').touched)">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </div>
+          </ng-container>
+        </div> 
+
+        <!-- Upload Back Man IC -->
+      <ion-item lines="full">
+        <ion-label position="stacked"> Copy of Back Man IC:
+          <font class = "CompulsoryMsg">*</font>
+        </ion-label>
+        <ion-input  formControlName="backmanic" type= "file"
+        class="upload" (change)="uploadbacownicFile($event.target.files)" 
+        accept="image/*,.pdf">
+        </ion-input>
+        </ion-item>
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of validation_messages.backmanic">
+            <div class="error-message" *ngIf="mvalidations_form.get('backmanic').hasError(validation.type) && (mvalidations_form.get('backmanic').dirty || mvalidations_form.get('backmanic').touched)">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </div>
+          </ng-container>
+        </div> 
+
+      <!-- Upload Front Man IC -->
+      <ion-item lines="full">
+        <ion-label position="stacked"> Copy of Front Woman IC:
+          <font class = "CompulsoryMsg">*</font>
+        </ion-label>
+        <ion-input  formControlName="frontwomanic" type= "file"
+        class="upload" (change)=" uploadfroindicFile($event.target.files)" 
+        accept="image/*,.pdf">
+        </ion-input>
+        </ion-item>
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of validation_messages.frontwomanic">
+            <div class="error-message" *ngIf="mvalidations_form.get('frontwomanic').hasError(validation.type) && (mvalidations_form.get('frontwomanic').dirty || mvalidations_form.get('frontwomanic').touched)">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </div>
+          </ng-container>
+        </div> 
+
+        <!-- Upload Back WoMan IC -->
+      <ion-item lines="full">
+        <ion-label position="stacked"> Copy of Back Woman IC:
+          <font class = "CompulsoryMsg">*</font>
+        </ion-label>
+        <ion-input  formControlName="backwomanic" type= "file"
+        class="upload" (change)="uploadbacindicFile($event.target.files)" 
+        accept="image/*,.pdf">
+        </ion-input>
+        </ion-item>
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of validation_messages.backwomanic">
+            <div class="error-message" *ngIf="mvalidations_form.get('backwomanic').hasError(validation.type) && (mvalidations_form.get('backwomanic').dirty || mvalidations_form.get('backwomanic').touched)">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </div>
+          </ng-container>
+        </div> 
+        
+            <!-- Upload Man Birth Certificate -->
+            <ion-item lines="full">
+              <ion-label position="stacked"> Man Birth Certificate (Copy):
+                <font class = "CompulsoryMsg">*</font>
+              </ion-label>
+              <ion-input  formControlName="birthcer" type= "file"
+              class="upload" (change)="uploadbircerFile($event.target.files)" 
+              accept="image/*,.pdf">
+              </ion-input>
+              </ion-item>
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.birthcer">
+                  <div class="error-message" *ngIf="mvalidations_form.get('birthcer').hasError(validation.type) && (mvalidations_form.get('birthcer').dirty || mvalidations_form.get('birthcer').touched)">
+                    <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                  </div>
+                </ng-container>
+              </div>
+
+
+               <!-- Upload Woman Birth Certificate -->
+            <ion-item lines="full">
+              <ion-label position="stacked"> Woman Birth Certificate (Copy):
+                <font class = "CompulsoryMsg">*</font>
+              </ion-label>
+              <ion-input  formControlName="womanbirthcer" type= "file"
+              class="upload" (change)="uploadindbircerFile($event.target.files)" 
+              accept="image/*,.pdf">
+              </ion-input>
+              </ion-item>
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.womanbirthcer">
+                  <div class="error-message" *ngIf="mvalidations_form.get('womanbirthcer').hasError(validation.type) && (mvalidations_form.get('womanbirthcer').dirty || mvalidations_form.get('womanbirthcer').touched)">
+                    <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                  </div>
+                </ng-container>
+              </div>
+
+              <!-- Upload Man Photo -->
+            <ion-item lines="full">
+              <ion-label position="stacked"> Upload Man Photo:
+                <font class = "CompulsoryMsg">*</font>
+              </ion-label>
+              <ion-input  formControlName="manphoto" type= "file"
+              class="upload" (change)="uploadphoFile($event.target.files)" 
+              accept="image/*">
+              </ion-input>
+              </ion-item>
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.manphoto">
+                  <div class="error-message" *ngIf="mvalidations_form.get('manphoto').hasError(validation.type) && (mvalidations_form.get('manphoto').dirty || mvalidations_form.get('manphoto').touched)">
+                    <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                  </div>
+                </ng-container>
+              </div>
+
+            <!-- Upload Woman Photo -->
+            <ion-item lines="full">
+              <ion-label position="stacked"> Upload Woman Photo:
+                <font class = "CompulsoryMsg">*</font>
+              </ion-label>
+              <ion-input  formControlName="womanphoto" type= "file"
+              class="upload" (change)="uploadindphoFile($event.target.files)" 
+              accept="image/*">
+              </ion-input>
+              </ion-item>
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.womanphoto">
+                  <div class="error-message" *ngIf="mvalidations_form.get('womanphoto').hasError(validation.type) && (mvalidations_form.get('womanphoto').dirty || mvalidations_form.get('womanphoto').touched)">
+                    <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                  </div>
+                </ng-container>
+              </div>
+
+               <!-- Upload Surat Pengesahan Taraf Perkahwinan -->
+            <ion-item lines="full">
+              <ion-label position="stacked"> Upload Surat Pengesahan Taraf Perkahwinan:
+                <font class = "CompulsoryMsg">*</font>
+              </ion-label>
+              <ion-input  formControlName="surat" type= "file"
+              class="upload" (change)="uploadsuFile($event.target.files)" 
+              accept="image/*,.pdf">
+              </ion-input>
+              </ion-item>
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.surat">
+                  <div class="error-message" *ngIf="mvalidations_form.get('surat').hasError(validation.type) && (mvalidations_form.get('surat').dirty || mvalidations_form.get('surat').touched)">
+                    <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                  </div>
+                </ng-container>
+              </div>
+
+            <!-- Upload Man's Wife Death Certificate -->
+            <ion-item lines="full">
+              <ion-label position="stacked">(If Applicable) Man's Wife Death Certificate (Copy):
+              </ion-label>
+              <ion-input  formControlName="manwifedeath" type= "file"
+              class="upload" (change)="uploadmanwdFile($event.target.files)" 
+              accept="image/*,.pdf">
+              </ion-input>
+              </ion-item>
+            
+              <!-- Upload Man Divorce Certificate -->
+            <ion-item lines="full">
+              <ion-label position="stacked">(If Applicable) Man Divorce Certificate (Copy):
+              </ion-label>
+              <ion-input  formControlName="mandivorce" type= "file"
+              class="upload" (change)="uploadmandiFile($event.target.files)" 
+              accept="image/*,.pdf">
+              </ion-input>
+              </ion-item>
+             
+
+              <!-- Upload Man's Wife Death Certificate -->
+            <ion-item lines="full">
+              <ion-label position="stacked">(If Applicable) Woman's Husband Death Certificate (Copy):
+              </ion-label>
+              <ion-input  formControlName="womanhusbanddeath" type= "file"
+              class="upload" (change)="uploadwomanhdFile($event.target.files)" 
+              accept="image/*,.pdf">
+              </ion-input>
+              </ion-item>
+              
+
+              <!-- Upload Woman Divorce Certificate -->
+            <ion-item lines="full">
+              <ion-label position="stacked">(If Applicable) Woman Divorce Certificate (Copy):
+              </ion-label>
+              <ion-input  formControlName="womandivorce" type= "file"
+              class="upload" (change)="uploadwomandiFile($event.target.files)" 
+              accept="image/*,.pdf">
+              </ion-input>
+              </ion-item>
+
+
+               
+                <div class="ion-padding">
+                  <!-- Submit Button -->
+                  <ion-button type="submit" expand="medium" [disabled]="!mvalidations_form.valid">
+                    Submit  <ion-icon name="send" slot="end"></ion-icon>
+                  </ion-button>
+                </div> 
+
+                </form>
+                </ion-card-content>   
+              </ng-template> 
+              </span>        
+          
+              <ng-template #marry>
+                <app-message-with-svg imageUrl="assets/image/married.svg" messageTitle="Opps! You have married already!!!"
+              messageContent="Perhaps you need to try other service!!!" wrapperSize="4" wrapperMarginTop="30px" wrapperOffset="4">
+            </app-message-with-svg>
+                </ng-template>
+        
+        
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+</div>
+</ion-content>

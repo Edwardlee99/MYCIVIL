@@ -1,0 +1,118 @@
+<ion-header [hidden]='comingFromTabs()'>
+  <ion-toolbar mode="md" color="primary">
+    <ion-title>Profile</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="glob-container">
+    <!-- CITIZEN PROFILE -->
+    <ng-template [ngIf]="citizenRole" [ngIfElse]="userIsStaff">
+      <ion-grid class="main-grid ion-no-padding">
+        <ion-row>
+          <ion-col size-xs="12" size-lg="4" size-md="7" offset-md="4">
+            <ion-card *ngFor="let item of citizen">
+              <ion-card-header>
+                <ion-avatar class="profile-image">
+                  <img id="bg" [src]="item.IMAGE"
+                    onerror="this.src='assets/image/no_img.png'">
+                </ion-avatar>
+                <hr class="ion-margin-top ion-margin-button hr-custom" />
+              </ion-card-header>
+              <ion-card-content style="padding-top: 0px">
+                <h2>Name:</h2>
+                <h3 class="text-bold">{{ item.NAME }}</h3>
+                <br>
+                <h2>Identification Card No.(NRIC No.):</h2>
+                <h3 class="text-bold">{{ item.IC }}</h3>
+                <br>
+                <h2>Email:</h2>
+                <h3><a class="text-bold" href="mailto:{{email}}">
+                  <ion-text color="primary">
+                    {{ email }}
+                  </ion-text>
+                </a></h3>
+                <br>
+                <h2>Contact Number:</h2>
+                <h3><a class="text-bold" href="tel:{{telno}}">
+                  <ion-text color="primary">
+                    {{ telno }}
+                  </ion-text>
+                </a></h3>
+                <br>
+                <h2>Birth Certificate No.:</h2>
+                <h3 class="text-bold">{{ item.BIRTHCERNO }}</h3>
+                <br>
+                <h2>Gender:</h2>
+                <h3 class="text-bold">{{ item.GENDER }}</h3>
+                <br>
+                <h2>Race:</h2>
+                <h3 class="text-bold">{{ item.RACE }}</h3>
+                <br>
+                <h2>Religion:</h2>
+                <h3 class="text-bold">{{ item.RELIGION }}</h3>
+                <br>
+                <h2>Birth Date:</h2>
+                <h3 class="text-bold">{{ item.BDATE }}</h3>
+                <br>
+                <h2>Address:</h2>
+                <h3 class="text-bold">{{ item.ADDRESS }}, {{ item.POSTCODE }}, {{ item.CITY }}, {{ item.STATE }}</h3>
+                <br>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ng-template>
+
+    <!-- STAFF PROFILE -->
+    <ng-template #userIsStaff>
+
+      <ion-grid class="main-grid ion-no-padding">
+        <ion-row>
+          <ion-col size-xs="12" size-lg="4" size-md="7" offset-md="4">
+            <ion-card *ngFor="let item of staff">
+              <ion-card-header>
+                <ion-avatar class="profile-image">
+                  <img id="bg" [src]="item.IMAGE"
+                    onerror="this.src='assets/image/no_img.png'">
+                </ion-avatar>
+                <hr class="ion-margin-top ion-margin-button hr-custom" />
+              </ion-card-header>
+              <ion-card-content style="padding-top: 0px">
+                <h2>Worker ID:</h2>
+                <h3 class="text-bold">{{ item.ID }}</h3>
+                <br>
+                <h2>Name:</h2>
+                <h3 class="text-bold">{{ item.NAME }}</h3>
+                <br>
+                <h2>Identification Card No.(NRIC No.):</h2>
+                <h3 class="text-bold">{{ item.IC }}</h3>
+                <br>
+                <h2>Role:</h2>
+                <h3 class="text-bold" >{{ item.ROLE }}</h3>
+                <h2>Email:</h2>
+                <h3><a class="text-bold" href="mailto:{{item.EMAIL}}">
+                    <ion-text color="primary">
+                      {{ item.EMAIL }}
+                    </ion-text>
+                  </a></h3>
+                <br>
+                <h2>Contact Number:</h2>
+                <h3><a class="text" href="tel:{{item.TELNO}}">
+                    <ion-text color="primary">
+                      {{ item.TELNO }}
+                    </ion-text>
+                  </a></h3>
+                <br>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+    </ion-grid>
+    </ng-template>
+  </div>
+</ion-content>

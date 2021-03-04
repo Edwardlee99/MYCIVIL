@@ -1,0 +1,69 @@
+<!-- Forget Password Page -->
+<ion-content>
+  <ion-grid class="main-grid ion-no-padding">
+    <ion-row header class="ion-align-items-start ion-align-items-stretch">
+
+      <!-- Form & Welcome Message -->
+      <ion-col size="10" offset="1" size-md="6" offset-md="3" size-lg="4" offset-lg="4">
+        <form [formGroup]="validations_form" (ngSubmit)="onSubmit(validations_form)">
+          <ion-row class="ion-align-items-start">
+            <ion-col class="title-text-wrapper" size="12">
+              <h1><strong>Reset Password Page</strong></h1>
+            </ion-col>
+          </ion-row>
+          <!-- Input-fields -->
+          <ion-row>
+            <ion-col size="12">
+              <div input-field>
+
+              <!-- Input-field-email -->
+              <ion-item lines="full">
+                <ion-label position="floating"> Email:
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input type="text" formControlName="email" [placeholder]="'Exp:john@mail.com'" (keyup.enter)="onSubmit(validations_form)"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.email">
+                    <div class="error-message" *ngIf="validations_form.get('email').hasError(validation.type) && (validations_form.get('email').dirty || validations_form.get('email').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+
+              
+
+              </div>
+              
+              <!-- Reset Button -->
+              <ion-col size="12" class="ion-no-padding">
+                <ion-button type="submit" class="submit-button ion-no-margin" [disabled]="!validations_form.valid">
+                  RESET <ion-icon name="reload" slot="end"></ion-icon>
+                </ion-button>
+              </ion-col>
+            
+              <!-- Useful Links -->
+            <div description class="ion-text-center">
+              <ion-row>
+                <!-- Register Account Link -->
+                <ion-col size="12" class="ion-no-padding ion-margin-top">
+                  <p class="ion-no-margin ion-no-padding">Don't have an account? <a routerLink="/register"
+                      routerDirection="forward">Register Account</a> </p>
+                </ion-col>
+                <!-- Login Page Link -->
+                <ion-col size="12" class="ion-no-padding ion-no-margin">
+                  <p class="ion-no-margin ion-no-padding">Already Have an Account? <a routerLink="/login"
+                    routerDirection="forward">Login Account</a>
+                  </p>
+                </ion-col>
+              </ion-row>
+            </div>
+          </ion-col>
+        </ion-row>
+      </form>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+</ion-content>
+
+

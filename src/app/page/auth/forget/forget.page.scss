@@ -1,0 +1,189 @@
+/* Settings font size
+  =========================================*/
+  $font-size-header: 24px;
+  $font-size-button: 16px;
+  $font-size-input-field: 14px;
+  $font-size-input-placeholder: 14px;
+  $font-size-description: 0.8em;
+  $font-size-label: 10px;
+  
+  /* Login font weight
+    =========================================*/
+  $font-weight-header: 300;
+  $font-weight-button: 700;
+  $font-weight-input-field: 400;
+  $font-weight-description: 800;
+  $font-weight-label: 600;
+  
+  /* Login text color
+    =========================================*/
+  $text-color-header: #ffffff;
+  $text-color-button: #ffffff;
+  $text-input-color: #242424;
+  $text-color-description: #ffffff;
+  $text-color-description-links: #687dfc;
+  $text-label-color: #ff0000;
+  
+  /* Content
+    ===============================*/
+  ion-content {
+    position: relative;
+    --background: #fafafa !important; // always light theme
+  }
+  ion-item {
+    // always light theme
+    --background: #f5f5f5 !important;
+    --color: #454343 !important;
+    --background-activated: #e0e0e0 !important;
+    --border-color: #e0e0e0 !important;
+  }
+  
+  .main-grid {
+    padding-top: constant(safe-area-inset-top); //for iOS 11.2
+    padding-top: env(safe-area-inset-top); //for iOS 11.1
+    background: #1e2d85;
+  }
+  
+  .btn_center {
+    margin: 0 auto;
+    width: 40%;
+    display: block;
+  }
+  
+  ion-grid {
+    min-height: 100%;
+  }
+  
+  [header] {
+    flex: 1;
+  }
+  
+  /* Settings for the reset password title
+      ===============================*/
+  h1,
+  h2 {
+    color: $text-color-header;
+    font-size: $font-size-header;
+    font-weight: $font-weight-header;
+    line-height: 29px;
+    font-size: 26px;
+    text-align: center;
+  }
+  .title-text-wrapper {
+    margin: 15px 0 !important;
+  }
+  strong {
+    display: block;
+  }
+  
+  /* Settings reset password form
+      ===============================*/
+  ion-input {
+    padding-left: 16px !important;
+    --background: transparent;
+  }
+  
+  /* Settings input-field
+        ===============================*/
+        
+        [input-field] .item:nth-last-child(1) .item-inner {
+          border-bottom: none !important;
+        }
+        
+        [input-field] .item-block {
+          overflow: visible !important;
+        }
+        
+        ion-item {
+          --ion-background-color: transparent;
+        }
+        
+        .CompulsoryMsg{
+          color: red;
+          font-size: 10 px;
+          text-align : center;
+          position: center;
+        }
+
+        ion-item .item-inner {
+          display: block !important;
+          overflow: visible !important;
+          border-bottom: 1px solid #cccccc !important;
+          box-shadow: none !important;
+        }
+  
+  
+  /* Settings text-input
+          ===============================*/
+  .text-input {
+    color: $text-input-color;
+    font-size: $font-size-input-field;
+    font-weight: $font-weight-input-field;
+    width: 100% !important;
+    margin: 19px 20px;
+  }
+  
+  
+  /*Settings for the description
+        ===============================*/
+  [description] {
+    margin: 20px 0;
+  }
+  [description] a {
+    color: $text-color-description-links;
+    font-size: $font-size-description;
+    font-weight: $font-weight-description;
+    text-decoration: none;
+  }
+  
+  [description] p {
+    color: $text-color-description;
+    font-size: $font-size-description;
+    font-weight: $font-weight-description;
+    line-height: 13px;
+  }
+
+  /* Error Message
+   ===============================*/
+   .error-message
+   {
+     color: red;
+     font-size: 14px;
+     margin-left: 10px;
+     margin-top: 10px;
+   }
+  
+  
+  /* Settings full button - submit button
+        ===============================*/
+  .submit-button {
+    display: block;
+    min-height: 50px;
+    border-radius: 50px;
+    margin-top: 25px;
+    color: $text-color-button;
+    font-size: $font-size-button;
+    font-weight: $font-weight-button;
+    letter-spacing: 2px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.16) !important;
+  }
+  /* Responsive for tablet
+   ===============================*/
+  @media (min-width: 576px) {
+    ion-grid {
+      position: relative;
+    }
+    .title-text-wrapper {
+      margin: 30px 0 !important;
+    }
+    h1,
+    h2 {
+      line-height: 40px !important;
+      font-size: 37px;
+      text-align: left;
+    }
+    form {
+      margin-top: 0 !important;
+    }
+  }
+  

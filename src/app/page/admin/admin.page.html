@@ -1,0 +1,61 @@
+<!-- Admin Page -->
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-button color="danger" fill="clear" (click)="logout()" slot="end">
+    <ion-icon color="danger" size="large" name="log-out-outline"></ion-icon>
+    </ion-button>
+    <ion-title> <div>
+      Welcome {{ username  }}!!!!
+  </div></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="main-grid ion-no-padding">
+    <ion-row header class="ion-align-items-start ion-align-items-stretch">
+      <ion-col size="10" offset="1" size-md="6" offset-md="3" size-lg="4" offset-lg="4">
+  <ion-row>
+  
+  <!-- Add Staff Button -->
+      <ion-col size="12" class="ion-no-padding">
+        <ion-button  [routerLink]="['/add_staff']" class="admin-button ion-no-margin">
+          <span>ADD STAFF PROFILE</span>
+        </ion-button>
+      </ion-col>
+
+   <!-- Add User Button -->
+   <ion-col size="12" class="ion-no-padding">
+    <ion-button class="admin-button ion-no-margin" [routerLink]="['/add_user']">
+      <span>ADD CITIZEN PROFILE</span>
+    </ion-button>
+  </ion-col> 
+  
+   <!-- Modify Staff Button -->
+   <ion-col size="12" class="ion-no-padding">
+    <ion-button  [routerLink]="['/staff']" class="admin-button ion-no-margin">
+      <span>MODIFY STAFF PROFILE</span>
+    </ion-button>
+  </ion-col> 
+
+    <!-- Modify User Button -->
+   <ion-col size="12" class="ion-no-padding">
+    <ion-button  [routerLink]="['/citizen']" class="admin-button ion-no-margin">
+      <span>MODIFY CITIZEN PROFILE</span>
+    </ion-button>
+  </ion-col> 
+
+  <!-- Logout Button -->
+  <ion-col size="12" class="ion-no-padding">
+    <ion-button  (click)="logout()" class="admin-button ion-no-margin">
+      <span>LOGOUT</span>
+    </ion-button>
+  </ion-col> 
+
+    </ion-row>
+    </ion-col>
+  </ion-row>
+  </ion-grid>
+</ion-content>
+
+
+

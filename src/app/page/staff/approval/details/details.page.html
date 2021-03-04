@@ -1,0 +1,1001 @@
+<ion-header>
+  <ion-toolbar mode="md" color="primary">
+    <ion-title> {{type}} Details</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="main-grid ion-no-padding">
+    <ion-row>
+      <ion-col size-xs="12" size-lg="4" size-md="7" offset-md="4">
+      <span *ngIf="!isFail; else fail">
+      <span *ngIf="!isAppregisteric; else approveic">
+      <span *ngIf="!isAppregisterbirth; else approvebirth">
+      <!-- Renew Identification Card -->
+      <ng-template [ngIf]="renewic">
+        
+      <ion-card *ngFor="let item of renic">
+          <ion-card-header>
+            <ion-avatar class="profile-image">
+              <a href="{{item.IMAGE}}" download>
+              <img id="bg" [src]="item.IMAGE"
+                onerror="this.src='assets/image/no_img.png'">
+              </a>
+            </ion-avatar>
+            <hr class="ion-margin-top ion-margin-button hr-custom" />
+          </ion-card-header>
+
+          <ion-card-content style="padding-top: 0px">
+            <h2>Identification Cards No. (NRIC No.):</h2>
+           <h3> <a class="text-bold" (click)="gotoCitizen(item.IC)">
+              <ion-text color="primary">
+                {{ item.IC }}
+              </ion-text>
+            </a></h3>
+             <br>
+            <h2>Name:</h2>
+            <h3 class="text-bold">{{ item.NAME }}</h3>
+            <br>
+            <h2>Email:</h2>
+            <h3><a class="text-bold" href="mailto:{{item.EMAIL}}">
+                <ion-text color="primary">
+                  {{ item.EMAIL }}
+                </ion-text>
+              </a></h3>
+            <br>
+            <h2>Contact Number:</h2>
+            <h3><a class="text-bold" href="tel:{{item.TELNO}}">
+                <ion-text color="primary">
+                  {{ item.TELNO }}
+                </ion-text>
+              </a></h3>
+             
+            <h2>Status:</h2>
+            <h3 class="text-bold">{{ item.STATUS }}</h3>
+            <br>
+            <h2>Start Date For Apply:</h2>
+            <h3 class="text-bold">{{ item.STARTDATE }}</h3>
+            <br>
+            <h2>Reason Fail Approval:</h2>
+            <h3 class="text-bold">{{ item.FAIL }}</h3>
+            <br>
+
+            <h2>Supporting Document For Address:</h2>
+            <h3><a class="text-bold" (click)="gotoPage(item.SUPPADDR)">
+                <ion-text color="primary">
+                  {{ item.SUPPADDR }}
+                </ion-text>
+              </a></h3>
+            <br>
+
+            <h2>Copy of Identification Card (Web Version):</h2>
+            <h3><a class="text-bold" (click)="gotoPage(item.COPYIC)">
+                <ion-text color="primary">
+                  {{ item.COPYIC }}
+                </ion-text>
+              </a></h3>
+            <br>
+
+            <h2>Front Copy of Identification Cards (Mobile Version):</h2>
+            <h3><a class="text-bold" (click)="gotoPage(item.FIC)">
+                <ion-text color="primary">
+                  {{ item.FIC }}
+                </ion-text>
+              </a></h3>
+            <br>
+
+            <h2>Back Copy of Identification Cards (Mobile Version):</h2>
+            <h3><a class="text-bold" (click)="gotoPage(item.BIC)">
+                <ion-text color="primary">
+                  {{ item.BIC }}
+                </ion-text>
+              </a></h3>
+            <br>
+
+            
+            <ion-grid>
+              <ion-row>
+
+
+
+                <ng-template [ngIf]="progress">
+                <ion-col>
+                  <ion-icon size="small" slot="end" name="checkmark-circle"></ion-icon>
+                  <ion-button expand="full" color="success" (click)="approvepopup()">
+                    Approve
+                  </ion-button>
+       
+                </ion-col>
+               
+
+                <ion-col>
+                  <ion-button expand="full" color="success" (click)="completepopup()">
+                    Complete
+                  </ion-button>
+        <ion-icon size="small" slot="icon-only" name="checkmark"></ion-icon>
+                </ion-col>
+
+
+                <ion-col>
+                  <ion-icon size="small" slot="end" name="close-circle"></ion-icon>
+                <ion-button color="danger" expand="full" (click)="failpopup()">
+                Fail
+                </ion-button>
+                  
+                </ion-col>
+              </ng-template>
+
+              <ng-template [ngIf]="approve">
+                <ion-col>
+                  <ion-button expand="full" color="success" (click)="completepopup()">
+                    Complete
+                  </ion-button>
+        <ion-icon size="small" slot="icon-only" name="checkmark"></ion-icon>
+                </ion-col>
+               
+                <ion-col>
+                <ion-button color="danger" expand="full" (click)="failpopup()">
+                Fail
+                </ion-button>
+                  <ion-icon size="small" slot="icon-only" name="close-circle"></ion-icon>
+                </ion-col>
+              </ng-template>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+      </ion-card>
+    </ng-template>
+
+    <!-- Edit Indentification Card -->
+    <ng-template [ngIf]="editic">
+        
+      <ion-card *ngFor="let item of edic">
+          <ion-card-header>
+            <ion-avatar class="profile-image">
+              <a href="{{item.IMAGE}}" download>
+              <img id="bg" [src]="item.IMAGE"
+                onerror="this.src='assets/image/no_img.png'">
+              </a>
+            </ion-avatar>
+            <hr class="ion-margin-top ion-margin-button hr-custom" />
+          </ion-card-header>
+
+          <ion-card-content style="padding-top: 0px">
+            <h2>Identification Cards No. (NRIC No.):</h2>
+           <h3> <a class="text-bold" (click)="gotoCitizen(item.IC)">
+              <ion-text color="primary">
+                {{ item.IC }}
+              </ion-text>
+            </a></h3>
+                <br>
+            <h2>Name:</h2>
+            <h3 class="text-bold">{{ item.NAME }}</h3>
+            <br>
+            <h2>Email:</h2>
+            <h3><a class="text-bold" href="mailto:{{item.EMAIL}}">
+                <ion-text color="primary">
+                  {{ item.EMAIL }}
+                </ion-text>
+              </a></h3>
+            <br>
+            <h2>Contact Number:</h2>
+            <h3><a class="text-bold" href="tel:{{item.TELNO}}">
+                <ion-text color="primary">
+                  {{ item.TELNO }}
+                </ion-text>
+              </a></h3>
+              <h2>Address:</h2>
+              <h3 class="text-bold">{{ item.ADDRESS }}, {{ item.POSTCODE }}, {{ item.CITY }}, {{ item.STATE }}</h3>
+              <br>
+             
+            <h2>Status:</h2>
+            <h3 class="text-bold">{{ item.STATUS }}</h3>
+            <br>
+            <h2>Start Date For Apply:</h2>
+            <h3 class="text-bold">{{ item.STARTDATE }}</h3>
+            <br>
+            <h2>Reason Fail Approval:</h2>
+            <h3 class="text-bold">{{ item.FAIL }}</h3>
+            <br>
+
+            <h2>Copy of Identification Card (Web Version):</h2>
+            <h3><a class="text-bold" (click)="gotoPage(item.COPYIC)">
+                <ion-text color="primary">
+                  {{ item.COPYIC }}
+                </ion-text>
+              </a></h3>
+            <br>
+
+            <h2>Front Copy of Identification Cards (Mobile Version):</h2>
+            <h3><a class="text-bold" (click)="gotoPage(item.FIC)">
+                <ion-text color="primary">
+                  {{ item.FIC }}
+                </ion-text>
+              </a></h3>
+            <br>
+
+            <h2>Back Copy of Identification Cards (Mobile Version):</h2>
+            <h3><a class="text-bold" (click)="gotoPage(item.BIC)">
+                <ion-text color="primary">
+                  {{ item.BIC }}
+                </ion-text>
+              </a></h3>
+            <br>
+
+            
+            <ion-grid>
+              <ion-row>
+
+
+
+                <ng-template [ngIf]="progress">
+                <ion-col>
+                  <ion-icon size="small" slot="end" name="checkmark-circle"></ion-icon>
+                  <ion-button expand="full" color="success" (click)="approvepopup()">
+                    Approve
+                  </ion-button>
+       
+                </ion-col>
+               
+                <ion-col>
+                  <ion-icon size="small" slot="end" name="close-circle"></ion-icon>
+                <ion-button color="danger" expand="full" (click)="failpopup()">
+                Fail
+                </ion-button>
+                  
+                </ion-col>
+              </ng-template>
+
+              <ng-template [ngIf]="approve">
+                <ion-col>
+                  <ion-button expand="full" color="success" (click)="completepopup()">
+                    Complete
+                  </ion-button>
+        <ion-icon size="small" slot="icon-only" name="checkmark"></ion-icon>
+                </ion-col>
+               
+                <ion-col>
+                <ion-button color="danger" expand="full" (click)="failpopup()">
+                Fail
+                </ion-button>
+                  <ion-icon size="small" slot="icon-only" name="close-circle"></ion-icon>
+                </ion-col>
+              </ng-template>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+      </ion-card>
+    </ng-template>
+
+      <!-- Register Indentification Card -->
+      <ng-template [ngIf]="registeric">
+        
+        <ion-card *ngFor="let item of regic">
+            <ion-card-header>
+              <ion-avatar class="profile-image">
+                <a href="{{item.IMAGE}}" download>
+                <img id="bg" [src]="item.IMAGE"
+                  onerror="this.src='assets/image/no_img.png'">
+                </a>
+              </ion-avatar>
+              <hr class="ion-margin-top ion-margin-button hr-custom" />
+            </ion-card-header>
+  
+            <ion-card-content style="padding-top: 0px">
+              <h2>Parent Identification Cards No. (NRIC No.):</h2>
+              <h3><a class="text-bold" (click)="gotoCitizen(item.PARENTIC)">
+               <ion-text color="primary">
+                  {{ item.PARENTIC }}
+                </ion-text>
+              
+              </a> </h3>
+              <br>
+
+                  <h2>Parent Name:</h2>
+                  <h3 class="text-bold">{{ item.PARENTNAME }}</h3>
+                  <br>
+              
+                  <h2>Name:</h2>
+              <h3 class="text-bold">{{ item.NAME }}</h3>
+              <br>
+              <h2>Birth Certificate No.:</h2>
+              <h3> <a class="text-bold" (click)="gotoChild(item.BIRTHCER)">
+                 <ion-text color="primary">
+                  {{ item.BIRTHCER }}
+                </ion-text>
+                
+              </a></h3>
+              <br>
+
+              <h2>Race:</h2>
+              <h3 class="text-bold">{{ item.RACE }}</h3>
+              <br>
+              <h2>Religion:</h2>
+              <h3 class="text-bold">{{ item.RELIGION }}</h3>
+              <br>
+              <h2>Email:</h2>
+              <h3><a class="text-bold" href="mailto:{{item.EMAIL}}">
+                  <ion-text color="primary">
+                    {{ item.EMAIL }}
+                  </ion-text>
+                </a></h3>
+              <br>
+              <h2>Contact Number:</h2>
+              <h3><a class="text-bold" href="tel:{{item.TELNO}}">
+                  <ion-text color="primary">
+                    {{ item.TELNO }}
+                  </ion-text>
+                </a></h3>
+                <h2>Address:</h2>
+                <h3 class="text-bold">{{ item.ADDRESS }}, {{ item.POSTCODE }}, {{ item.CITY }}, {{ item.STATE }}</h3>
+                <br>
+               
+              <h2>Status:</h2>
+              <h3 class="text-bold">{{ item.STATUS }}</h3>
+              <br>
+              <h2>Start Date For Apply:</h2>
+              <h3 class="text-bold">{{ item.STARTDATE }}</h3>
+              <br>
+              <h2>Reason Fail Approval:</h2>
+            <h3 class="text-bold">{{ item.FAIL }}</h3>
+            <br>
+            <h2>Approve Result (Indentification Card No.):</h2>
+                  <h3 class="text-bold">{{ item.IC }}</h3>
+                  <br>
+              <h2>Supporting Document For Address:</h2>
+              <h3><a class="text-bold" (click)="gotoPage(item.SUPPADDR)">
+                  <ion-text color="primary">
+                    {{ item.SUPPADDR }}
+                  </ion-text>
+                </a></h3>
+              <br>
+  
+              <h2>Copy of Parent Identification Card (Web Version):</h2>
+              <h3><a class="text-bold" (click)="gotoPage(item.COPYIC)">
+                  <ion-text color="primary">
+                    {{ item.COPYIC }}
+                  </ion-text>
+                </a></h3>
+              <br>
+  
+              <h2>Front Parent Copy of Identification Cards (Mobile Version):</h2>
+              <h3><a class="text-bold" (click)="gotoPage(item.FIC)">
+                  <ion-text color="primary">
+                    {{ item.FIC }}
+                  </ion-text>
+                </a></h3>
+              <br>
+  
+              <h2>Back Parent Copy of Identification Cards (Mobile Version):</h2>
+              <h3><a class="text-bold" (click)="gotoPage(item.BIC)">
+                  <ion-text color="primary">
+                    {{ item.BIC }}
+                  </ion-text>
+                </a></h3>
+              <br>
+  
+              
+              <ion-grid>
+                <ion-row>
+  
+  
+  
+                  <ng-template [ngIf]="progress">
+                  <ion-col>
+                    <ion-icon size="small" slot="end" name="checkmark-circle"></ion-icon>
+                    <ion-button expand="full" color="success" (click)="approvepopup()">
+                      Approve
+                    </ion-button>
+         
+                  </ion-col>
+                 
+                  <ion-col>
+                    <ion-icon size="small" slot="end" name="close-circle"></ion-icon>
+                  <ion-button color="danger" expand="full" (click)="failpopup()">
+                  Fail
+                  </ion-button>
+                    
+                  </ion-col>
+                </ng-template>
+  
+                <ng-template [ngIf]="approve">
+                  <ion-col>
+                    <ion-button expand="full" color="success" (click)="completepopup()">
+                      Complete
+                    </ion-button>
+          <ion-icon size="small" slot="icon-only" name="checkmark"></ion-icon>
+                  </ion-col>
+                 
+                  <ion-col>
+                  <ion-button color="danger" expand="full" (click)="failpopup()">
+                  Fail
+                  </ion-button>
+                    <ion-icon size="small" slot="icon-only" name="close-circle"></ion-icon>
+                  </ion-col>
+                </ng-template>
+                </ion-row>
+              </ion-grid>
+            </ion-card-content>
+        </ion-card>
+      </ng-template>
+
+         <!-- Reigister Birth Certificate-->
+         <ng-template [ngIf]="registerbirth">
+        
+          <ion-card *ngFor="let item of regbir">
+    
+              <ion-card-content style="padding-top: 0px">
+                <h2>Father Identification Cards No. (NRIC No.):</h2>
+               <h3> <a class="text-bold" (click)="gotoCitizen(item.FATHERIC)">
+                  <ion-text color="primary">
+                    {{ item.FATHERIC }}
+                  </ion-text>
+                </a></h3>
+                    <br>
+                    <h2>Father Name:</h2>
+                    <h3 class="text-bold">{{ item.FATHERNAME }}</h3>
+                    <br>
+            
+                <h2>Mother Identification Cards No. (NRIC No.):</h2>
+                <h3><a class="text-bold" (click)="gotoCitizen(item.MOTHERIC)">
+                  <ion-text color="primary">
+                    {{ item.MOTHERIC }}
+                  </ion-text>
+                </a></h3>
+                    <br>
+                    
+                    <h2>Mother Name:</h2>
+                    <h3 class="text-bold">{{ item.MOTHERNAME }}</h3>
+                    <br>
+
+                <h2>Baby/Child Name:</h2>
+                <h3 class="text-bold">{{ item.NAME }}</h3>
+                <br>
+                <h2>Gender:</h2>
+                <h3 class="text-bold">{{ item.GENDER }}</h3>
+                <br>
+                <h2>Birthtime:</h2>
+                <h3 class="text-bold">{{ item.BIRTHTIME }}</h3>
+                <br>
+                <h2>Birthdate:</h2>
+                <h3 class="text-bold">{{ item.BIRTHDATE }}</h3>
+                <br>
+                <h2>State of Birth Placed:</h2>
+                <h3 class="text-bold">{{ item.STATE }}</h3>
+                <br>
+                <h2>Parent Email:</h2>
+                <h3><a class="text-bold" href="mailto:{{item.EMAIL}}">
+                    <ion-text color="primary">
+                      {{ item.EMAIL }}
+                    </ion-text>
+                  </a></h3>
+                <br>
+                <h2>Parent Contact Number:</h2>
+                <h3><a class="text-bold" href="tel:{{item.TELNO}}">
+                    <ion-text color="primary">
+                      {{ item.TELNO }}
+                    </ion-text>
+                  </a></h3>
+                 
+                <h2>Status:</h2>
+                <h3 class="text-bold">{{ item.STATUS }}</h3>
+                <br>
+                <h2>Start Date For Apply:</h2>
+                <h3 class="text-bold">{{ item.STARTDATE }}</h3>
+                <br>
+                <h2>Reason Fail Approval:</h2>
+                 <h3 class="text-bold">{{ item.FAIL }}</h3>
+                 <br>
+                 <h2>Approve Result (Birth Certificate):</h2>
+                  <h3 class="text-bold">{{ item.BIRTHCER }}</h3>
+                  <br>
+    
+                <h2>Marry Certificate:</h2>
+                <h3><a class="text-bold" (click)="gotoPage(item.MARRYCER)">
+                    <ion-text color="primary">
+                      {{ item.MARRYCER }}
+                    </ion-text>
+                  </a></h3>
+                <br>
+
+                <h2>Doctor Letter:</h2>
+                <h3><a class="text-bold" (click)="gotoPage(item.DOCLETTER)">
+                    <ion-text color="primary">
+                      {{ item.DOCLETTER }}
+                    </ion-text>
+                  </a></h3>
+                <br>
+
+                <h2>Kad Pranatal/Kad Rawatan Semasa Ibu Mengandung/Surat akuan AM80  (Copy):</h2>
+                <h3><a class="text-bold" (click)="gotoPage(item.CARDLETTER)">
+                    <ion-text color="primary">
+                      {{ item.CARDLETTER }}
+                    </ion-text>
+                  </a></h3>
+                <br>
+
+                <h2>(If Applicable)Mother Death Certificate (Copy):</h2>
+                <h3><a class="text-bold" (click)="gotoPage(item.MOTHERDEATH)">
+                    <ion-text color="primary">
+                      {{ item.MOTHERDEATH }}
+                    </ion-text>
+                  </a></h3>
+                <br>
+
+                <h2>(If Applicable)Father Death Certificate (Copy):</h2>
+                <h3><a class="text-bold" (click)="gotoPage(item.FATHERDEATH)">
+                    <ion-text color="primary">
+                      {{ item.FATHERDEATH }}
+                    </ion-text>
+                  </a></h3>
+                <br>
+    
+                <h2>Copy of Mother Identification Card (Web Version):</h2>
+                <h3><a class="text-bold" (click)="gotoPage(item.MCOPYIC)">
+                    <ion-text color="primary">
+                      {{ item.MCOPYIC }}
+                    </ion-text>
+                  </a></h3>
+                <br>
+
+                <h2>Copy of Father Identification Card (Web Version):</h2>
+                <h3><a class="text-bold" (click)="gotoPage(item.FCOPYIC)">
+                    <ion-text color="primary">
+                      {{ item.FCOPYIC }}
+                    </ion-text>
+                  </a></h3>
+                <br>
+    
+                <h2>Front Mother Copy of Identification Cards (Mobile Version):</h2>
+                <h3><a class="text-bold" (click)="gotoPage(item.FMIC)">
+                    <ion-text color="primary">
+                      {{ item.FMIC }}
+                    </ion-text>
+                  </a></h3>
+                <br>
+    
+                <h2>Back Mother Copy of Identification Cards (Mobile Version):</h2>
+                <h3><a class="text-bold" (click)="gotoPage(item.BMIC)">
+                    <ion-text color="primary">
+                      {{ item.BMIC }}
+                    </ion-text>
+                  </a></h3>
+                <br>
+    
+                <h2>Front Father Copy of Identification Cards (Mobile Version):</h2>
+                <h3><a class="text-bold" (click)="gotoPage(item.FFIC)">
+                    <ion-text color="primary">
+                      {{ item.FFIC }}
+                    </ion-text>
+                  </a></h3>
+                <br>
+    
+                <h2>Back Father Copy of Identification Cards (Mobile Version):</h2>
+                <h3><a class="text-bold" (click)="gotoPage(item. BFIC)">
+                    <ion-text color="primary">
+                      {{ item. BFIC }}
+                    </ion-text>
+                  </a></h3>
+                <br>
+                
+                <ion-grid>
+                  <ion-row>
+    
+    
+    
+                    <ng-template [ngIf]="progress">
+                    <ion-col>
+                      <ion-icon size="small" slot="end" name="checkmark-circle"></ion-icon>
+                      <ion-button expand="full" color="success" (click)="approvepopup()">
+                        Approve
+                      </ion-button>
+           
+                    </ion-col>
+                   
+                    <ion-col>
+                      <ion-icon size="small" slot="end" name="close-circle"></ion-icon>
+                    <ion-button color="danger" expand="full" (click)="failpopup()">
+                    Fail
+                    </ion-button>
+                      
+                    </ion-col>
+                  </ng-template>
+    
+                  <ng-template [ngIf]="approve">
+                    <ion-col>
+                      <ion-button expand="full" color="success" (click)="completepopup()">
+                        Complete
+                      </ion-button>
+            <ion-icon size="small" slot="icon-only" name="checkmark"></ion-icon>
+                    </ion-col>
+                   
+                    <ion-col>
+                    <ion-button color="danger" expand="full" (click)="failpopup()">
+                    Fail
+                    </ion-button>
+                      <ion-icon size="small" slot="icon-only" name="close-circle"></ion-icon>
+                    </ion-col>
+                  </ng-template>
+                  </ion-row>
+                </ion-grid>
+              </ion-card-content>
+          </ion-card>
+        </ng-template>
+
+
+                 <!-- Register Marriage-->
+                 <ng-template [ngIf]="registermarry">
+        
+                  <ion-card *ngFor="let item of regma">
+              
+                    <ion-avatar class="profile-image">
+                      <a href="{{item.MANIMAGE}}" download>
+                      <img id="bg" [src]="item.MANIMAGE"
+                        onerror="this.src='assets/image/no_img.png'">
+                      </a>
+                    </ion-avatar>
+                    <hr class="ion-margin-top ion-margin-button hr-custom" />
+              
+        
+            
+                      <ion-card-content style="padding-top: 0px">
+                        <h2>Man Identification Cards No. (NRIC No.):</h2>
+                       <h3> <a class="text-bold" (click)="gotoCitizen(item.MANIC)">
+                          <ion-text color="primary">
+                            {{ item.MANIC }}
+                          </ion-text>
+                        </a></h3>
+                            <br>
+                            <h2>Man Name:</h2>
+                            <h3 class="text-bold">{{ item.MANNAME }}</h3>
+                            <br>
+
+                            <h2>Man Email:</h2>
+                            <h3><a class="text-bold" href="mailto:{{item.MANEMAIL}}">
+                                <ion-text color="primary">
+                                  {{ item.MANEMAIL }}
+                                </ion-text>
+                              </a></h3>
+                            <br>
+                            <h2>Man Contact Number:</h2>
+                            <h3><a class="text-bold" href="tel:{{item.MANTELNO}}">
+                                <ion-text color="primary">
+                                  {{ item.MANTELNO }}
+                                </ion-text>
+                              </a></h3>
+
+                              <h2>Man Birth Certificate:</h2>
+                              <h3><a class="text-bold" (click)="gotoPage(item.MANBIRTHCER)">
+                                  <ion-text color="primary">
+                                    {{ item.MANBIRTHCER }}
+                                  </ion-text>
+                                </a></h3>
+                              <br>
+
+                              <h2>Copy of Man Identification Card (Web Version):</h2>
+                              <h3><a class="text-bold" (click)="gotoPage(item.MCOPYIC)">
+                                  <ion-text color="primary">
+                                    {{ item.MCOPYIC }}
+                                  </ion-text>
+                                </a></h3>
+                              <br>
+      
+                              <h2>Front Man Copy of Identification Cards (Mobile Version):</h2>
+                              <h3><a class="text-bold" (click)="gotoPage(item.FFIC)">
+                                  <ion-text color="primary">
+                                    {{ item.FMIC }}
+                                  </ion-text>
+                                </a></h3>
+                              <br>
+                  
+                              <h2>Back Man Copy of Identification Cards (Mobile Version):</h2>
+                              <h3><a class="text-bold" (click)="gotoPage(item. BFIC)">
+                                  <ion-text color="primary">
+                                    {{ item. BMIC }}
+                                  </ion-text>
+                                </a></h3>
+                              <br>
+
+                              <h2>(If Applicable)Man Wife Death Certificate (Copy):</h2>
+                              <h3><a class="text-bold" (click)="gotoPage(item.MANWIFEDEATH)">
+                                  <ion-text color="primary">
+                                    {{ item.MANWIFEDEATH }}
+                                  </ion-text>
+                                </a></h3>
+                              <br>
+      
+                              <h2>(If Applicable)Man Divorce Certificate (Copy):</h2>
+                              <h3><a class="text-bold" (click)="gotoPage(item.MANDIVORCE)">
+                                  <ion-text color="primary">
+                                    {{ item.MANDIVORCE }}
+                                  </ion-text>
+                                </a></h3>
+                              <br>
+
+                              <hr class="ion-margin-top ion-margin-button hr-custom" />
+
+                              <ion-avatar class="profile-image">
+                                <a href="{{item.WOMANIMAGE}}" download>
+                                <img id="bg" [src]="item.WOMANIMAGE"
+                                  onerror="this.src='assets/image/no_img.png'">
+                                </a>
+                              </ion-avatar>
+                              <hr class="ion-margin-top ion-margin-button hr-custom" />
+        
+                        
+                            <h2>Woman Identification Cards No. (NRIC No.):</h2>
+                      <h3>  <a class="text-bold" (click)="gotoCitizen(item.WOMANIC)">
+                          <ion-text color="primary">
+                            {{ item.WOMANIC }}
+                          </ion-text>
+                        </a></h3>
+                            <br>
+                            <h2>Woman Name:</h2>
+                            <h3 class="text-bold">{{ item.WOMANNAME }}</h3>
+                            <br>
+
+                            <h2>Woman Email:</h2>
+                            <h3><a class="text-bold" href="mailto:{{item.WOMANEMAIL}}">
+                                <ion-text color="primary">
+                                  {{ item.WOMANEMAIL }}
+                                </ion-text>
+                              </a></h3>
+                            <br>
+                            <h2>Woman Contact Number:</h2>
+                            <h3><a class="text-bold" href="tel:{{item.WOMANTELNO}}">
+                                <ion-text color="primary">
+                                  {{ item.WOMANTELNO }}
+                                </ion-text>
+                              </a></h3>
+                  
+                        <h2>Woman Birth Certificate:</h2>
+                        <h3><a class="text-bold" (click)="gotoPage(item.WOMANBIRTHCER)">
+                            <ion-text color="primary">
+                              {{ item.WOMANBIRTHCER }}
+                            </ion-text>
+                          </a></h3>
+                        <br>
+
+                        <h2>Copy of Woman Identification Card (Web Version):</h2>
+                        <h3><a class="text-bold" (click)="gotoPage(item.FCOPYIC)">
+                            <ion-text color="primary">
+                              {{ item.FCOPYIC }}
+                            </ion-text>
+                          </a></h3>
+                        <br>
+            
+                        <h2>Front Woman Copy of Identification Cards (Mobile Version):</h2>
+                        <h3><a class="text-bold" (click)="gotoPage(item.FWIC)">
+                            <ion-text color="primary">
+                              {{ item.FWIC }}
+                            </ion-text>
+                          </a></h3>
+                        <br>
+            
+                        <h2>Back Woman Copy of Identification Cards (Mobile Version):</h2>
+                        <h3><a class="text-bold" (click)="gotoPage(item.BWIC)">
+                            <ion-text color="primary">
+                              {{ item.BWIC }}
+                            </ion-text>
+                          </a></h3>
+                        <br>
+
+                        <h2>(If Applicable)Woman Husband Death Certificate (Copy):</h2>
+                        <h3><a class="text-bold" (click)="gotoPage(item.WOMANHUSBANDDEATH)">
+                            <ion-text color="primary">
+                              {{ item.WOMANHUSBANDDEATH }}
+                            </ion-text>
+                          </a></h3>
+                        <br>
+
+                        <h2>(If Applicable)Woman Divorce Certificate (Copy):</h2>
+                        <h3><a class="text-bold" (click)="gotoPage(item.WOMANDIVORCE)">
+                            <ion-text color="primary">
+                              {{ item.WOMANDIVORCE }}
+                            </ion-text>
+                          </a></h3>
+                        <br>
+
+                        <hr class="ion-margin-top ion-margin-button hr-custom" />
+        
+        
+                        <h2>Surat Pengesahan Taraf Perkahwinan:</h2>
+                        <h3><a class="text-bold" (click)="gotoPage(item.DOCLETTER)">
+                            <ion-text color="primary">
+                              {{ item.LETTER }}
+                            </ion-text>
+                          </a></h3>
+                        <br>
+        
+                        <h2>Status:</h2>
+                        <h3 class="text-bold">{{ item.STATUS }}</h3>
+                        <br>
+                        <h2>Start Date For Apply:</h2>
+                        <h3 class="text-bold">{{ item.STARTDATE }}</h3>
+                        <br>
+                        <h2>Reason Fail Approval:</h2>
+                        <h3 class="text-bold">{{ item.FAIL }}</h3>
+                        <br>
+                        <h2>Approve Result (Marry Certificate):</h2>
+                        <h3 class="text-bold">{{ item.MARRYCER }}</h3>
+                        <br>
+                        <ion-grid>
+                          <ion-row>
+                            <ng-template [ngIf]="progress">
+                            <ion-col>
+                              <ion-icon size="small" slot="end" name="checkmark-circle"></ion-icon>
+                              <ion-button expand="full" color="success" (click)="approvepopup()">
+                                Approve
+                              </ion-button>
+                   
+                            </ion-col>
+
+          
+                           
+                            <ion-col>
+                              <ion-icon size="small" slot="end" name="close-circle"></ion-icon>
+                            <ion-button color="danger" expand="full" (click)="failpopup()">
+                            Fail
+                            </ion-button>
+                              
+                            </ion-col>
+                          </ng-template>
+            
+                          <ng-template [ngIf]="approve">
+                            <ion-col>
+                              <ion-button expand="full" color="success" (click)="completepopup()">
+                                Complete
+                              </ion-button>
+                    <ion-icon size="small" slot="icon-only" name="checkmark"></ion-icon>
+                            </ion-col>
+                           
+                            <ion-col>
+                            <ion-button color="danger" expand="full" (click)="failpopup()">
+                            Fail
+                            </ion-button>
+                              <ion-icon size="small" slot="icon-only" name="close-circle"></ion-icon>
+                            </ion-col>
+                          </ng-template>
+                          </ion-row>
+                        </ion-grid>
+                      </ion-card-content>
+                  </ion-card>
+                </ng-template>
+            </span>
+          </span>
+          </span>
+
+
+    <!-- To fail -->
+     <ng-template #fail>
+       <ion-card>
+  <ion-card-header color="primary">
+    <ion-card-title >
+              Reason to Fail to {{type}} Service  
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+  <form [formGroup]="fail_form" (ngSubmit)="failapply(fail_form)">
+  <!-- Note -->
+  <ion-item lines="full">
+    <ion-label position="floating">Reason:</ion-label>
+    <ion-textarea formControlName="note"></ion-textarea>
+  </ion-item>
+  <div class="validation-errors">
+    <ng-container *ngFor="let validation of validation_messages.note">
+      <div class="error-message" *ngIf="fail_form.get('note').hasError(validation.type) && (fail_form.get('note').dirty || fail_form.get('note').touched)">
+        <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="ion-padding">
+    <!-- Back Button -->
+   <ion-button expand="medium" color="danger" (click)="isFail = false">
+     Cancel  <ion-icon name="ban-outline" slot="end"></ion-icon>
+   </ion-button>
+   <!-- Submit Button -->
+   <ion-button type="submit" expand="medium" [disabled]="!fail_form.valid">
+     Submit  <ion-icon name="send" slot="end"></ion-icon>
+   </ion-button>
+ </div> 
+
+  </form>
+    </ion-card-content>
+  </ion-card>
+  </ng-template>
+
+    <!-- To Approve Identification Card -->
+    <ng-template #approveic>
+      <ion-card>
+ <ion-card-header color="primary">
+   <ion-card-title >
+             Approval {{type}} Service  
+     </ion-card-title>
+   </ion-card-header>
+   <ion-card-content>
+ <form [formGroup]="approvalic_form" (ngSubmit)="appric(approvalic_form)">
+<!-- Input-field-ic -->
+<ion-item lines="full">
+  <ion-label position="floating"> Identification Card Number :
+    <font class = "CompulsoryMsg">*</font>
+  </ion-label>
+  <ion-input type="text" formControlName="ic" [placeholder]="'New NRIC No.'"></ion-input>
+  </ion-item>
+  <div class="validation-errors">
+    <ng-container *ngFor="let validation of validation_messages.ic">
+      <div class="error-message" *ngIf="approvalic_form.get('ic').hasError(validation.type) && (approvalic_form.get('ic').dirty || approvalic_form.get('ic').touched)">
+        <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+      </div>
+    </ng-container>
+  </div>
+
+ <div class="ion-padding">
+   <!-- Back Button -->
+  <ion-button expand="medium" color="danger" (click)="isAppregisteric = false">
+    Cancel  <ion-icon name="ban-outline" slot="end"></ion-icon>
+  </ion-button>
+  <!-- Submit Button -->
+  <ion-button type="submit" expand="medium" [disabled]="!approvalic_form.valid">
+    Submit  <ion-icon name="send" slot="end"></ion-icon>
+  </ion-button>
+</div> 
+
+ </form>
+   </ion-card-content>
+ </ion-card>
+ </ng-template>
+
+
+     <!-- To Approve Birth Certificate -->
+     <ng-template #approvebirth>
+      <ion-card>
+ <ion-card-header color="primary">
+   <ion-card-title >
+             Approval {{type}} Service  
+     </ion-card-title>
+   </ion-card-header>
+   <ion-card-content>
+ <form [formGroup]="approvalbirth_form" (ngSubmit)="apprbirth(approvalbirth_form)">
+  <!-- Birth Certificate No. -->
+  <ion-item lines="full">
+    <ion-label position="floating">Birth Certificate No.:
+      <font class = "CompulsoryMsg">*</font>
+    </ion-label>
+    <ion-input type="text" formControlName="birth"></ion-input>
+  </ion-item>
+  <div class="validation-errors">
+    <ng-container *ngFor="let validation of validation_messages.birth">
+      <div class="error-message" *ngIf="approvalbirth_form.get('birth').hasError(validation.type) && (approvalbirth_form.get('birth').dirty || approvalbirth_form.get('birth').touched)">
+        <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+      </div>
+    </ng-container>
+  </div>
+    
+
+ <div class="ion-padding">
+   <!-- Back Button -->
+  <ion-button expand="medium" color="danger" (click)="isAppregisterbirth = false">
+    Cancel  <ion-icon name="ban-outline" slot="end"></ion-icon>
+  </ion-button>
+  <!-- Submit Button -->
+  <ion-button type="submit" expand="medium" [disabled]="!approvalbirth_form.valid">
+    Submit  <ion-icon name="send" slot="end"></ion-icon>
+  </ion-button>
+</div> 
+
+ </form>
+   </ion-card-content>
+ </ion-card>
+ </ng-template>
+
+
+
+      </ion-col>
+    </ion-row>
+</ion-grid>
+
+</ion-content>

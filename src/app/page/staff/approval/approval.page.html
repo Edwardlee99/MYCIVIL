@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar mode="md" color="primary">
+    <ion-title>Approval Flow List</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/more"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="main-grid ion-no-padding">
+    <ion-row header class="ion-align-items-start ion-align-items-stretch">
+      <ion-col size="10" offset="1" size-md="6" offset-md="3" size-lg="4" offset-lg="4">
+        <span *ngIf="!click; else openbutton">
+        <ion-row *ngFor="let item of apprbutton">
+
+  
+  <!-- Button -->
+    <ion-col size="12" class="ion-no-padding">
+      <ion-button (click)="save(item)" class="option-button ion-no-margin">
+        <span>{{item}}</span>
+      </ion-button>
+    </ion-col> 
+  </ion-row>
+</span>
+
+
+  <ng-template #openbutton>
+    <ion-row *ngFor="let item of status">
+     <!-- Button -->
+     <ion-col size="12" class="ion-no-padding">
+      <ion-button (click)="openpage(item)" class="option-button ion-no-margin">
+        <span>{{item}}</span>
+      </ion-button>
+    </ion-col> 
+    </ion-row>
+    <ion-row >
+      <!-- Button -->
+      <ion-col size="12" class="ion-no-padding">
+        <ion-button color="danger" (click)=" click = false" class="option-button ion-no-margin">
+          <span>Back</span>
+        </ion-button>
+     </ion-col> 
+     </ion-row>
+  </ng-template>
+
+
+
+</ion-col>
+</ion-row>
+</ion-grid>
+
+</ion-content>

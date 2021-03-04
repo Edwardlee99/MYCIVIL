@@ -1,0 +1,7 @@
+{
+  "name": "MYCIVIL",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,376 @@
+<ion-header>
+  <ion-toolbar mode="md" color="primary">
+    <ion-title>Edit Identification Card Info</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/more"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="glob-container">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-xs="12" size-md="5" push-md="7">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title color="danger" class="text-bold">Important Notice</ion-card-title>
+            </ion-card-header>
+            <ion-card-content class="ion-padding-top">
+              <ion-text>
+                <p>
+                  This edit address of the identification card info service will need your following attachment: 
+                </p>
+                <ul>
+                  <li>Your Idetification Card</li>
+                  <li>Photo (Background in Blue Colour)</li>
+                  <li>Supporting Document For Address</li>
+                  <ul>
+                    <li>Bil elektrik atau</li>
+                    <li>Bil air atau</li>
+                    <li>Bil pembentungan atau</li>
+                    <li>Bil utiliti atau</li>
+                    <li>Borang taksiran cukai pendapatan atau</li>
+                    <li>Perjanjian jual beli rumah atau</li>
+                    <li>Perjanjian atau resit sewa rumah atau</li>
+                    <li>dokumen sokongan dari Penghulu/ Ketua Kampung/ Tuai Rumah / ADUN / Ahli Parlimen / Majikan/ Angkatan Tentera Malaysia (ATM)</li>
+                    <li>atau other</li>
+                  </ul>
+                </ul>  
+                <br>
+                <ion-text color="danger">
+                  <p>
+                   The attachment can only accept pdf file format and picture or image format. 
+                  </p>
+                </ion-text>
+                  <br>
+                  <ion-text color="danger">
+                    <p>
+                      Please make sure the image or picture format attachment is clear while it is not clear we will fail your approval status!!!
+                    </p>
+                  </ion-text>
+                    <br>
+                    <ion-text color="danger">
+                      <p>
+                        Do not try to choose other than pdf file format and picture or image format to upload attachment. We can fail your approval status too!!!
+                      </p>
+                      <br>
+                    </ion-text>
+                    <p>
+                      This Service can only edit <ion-text
+                      color="danger"> address </ion-text>.
+                    </p>
+                    <br>
+                  <ion-text color="danger">
+                    <p>
+                    If need to edit other information except than address, please go to the respectively JPN Office!!!
+                    </p>
+                  </ion-text>
+                    <br>
+                <ion-text color="danger">
+                  <p>
+                    If you have a question about edits idetification card info, you can use our
+                    <a tappable="true" class="text-bold" (click)="openOnlineFeedbackSystem()">Online Feedback System</a>
+                    to send your feedback to the person who is in charge.
+                  </p>
+                </ion-text>
+              </ion-text>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+        <ion-col size-xs="12" size-md="7" pull-md="5">
+          <ion-card>
+            <ion-card-header color="primary">
+              <ion-card-title>Edit Identification Card Info</ion-card-title>
+            </ion-card-header>
+          <!-- Web version Form -->
+          <ng-template [ngIf]="webversion">
+            <ion-card-content>
+              <form [formGroup]="validations_form" (ngSubmit)="iceditweb(validations_form)">
+
+          <!-- Address -->
+          <ion-item lines="full">
+            <ion-label position="floating">Address:
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-input type="text" formControlName="address"></ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.address">
+              <div class="error-message" *ngIf="validations_form.get('address').hasError(validation.type) && (validations_form.get('address').dirty || validations_form.get('address').touched)">
+                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+
+              <!-- City -->
+              <ion-item lines="full">
+                <ion-label position="floating">City:
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input type="text" formControlName="city"></ion-input>
+              </ion-item>
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.city">
+                  <div class="error-message" *ngIf="validations_form.get('city').hasError(validation.type) && (validations_form.get('city').dirty || validations_form.get('city').touched)">
+                    <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                  </div>
+                </ng-container>
+              </div>
+
+
+            <!-- Postcode -->
+              <ion-item lines="full">
+                <ion-label position="floating">Postcode:
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input type="text" formControlName="postcode"></ion-input>
+              </ion-item>
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.postcode">
+                  <div class="error-message" *ngIf="validations_form.get('postcode').hasError(validation.type) && (validations_form.get('postcode').dirty || validations_form.get('postcode').touched)">
+                    <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                  </div>
+                </ng-container>
+              </div>
+
+            <!-- State -->
+            <ion-item lines="full">
+              <ion-label position="floating">State:
+                <font class = "CompulsoryMsg">*</font>
+              </ion-label>
+              <ion-select formControlName="state" cancelText="Cancel" okText="OK">
+                <ion-select-option *ngFor="let state of states" [value]="state">{{state}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.state">
+                <div class="error-message" *ngIf="validations_form.get('state').hasError(validation.type) && (validations_form.get('state').dirty || validations_form.get('state').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>                
+  
+          <!-- Upload IC -->
+          <ion-item lines="full">
+            <ion-label position="stacked"> Identification Card Number (Copy):
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-input  formControlName="copyic" type= "file"
+            class="upload" (change)="uploadcoicFile($event.target.files)" 
+            accept="image/*,.pdf">
+            </ion-input>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.copyic">
+                <div class="error-message" *ngIf="validations_form.get('copyic').hasError(validation.type) && (validations_form.get('copyic').dirty || validations_form.get('copyic').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>                
+
+                  <!-- Upload Photo -->
+                <ion-item lines="full">
+                  <ion-label position="stacked"> Upload Photo:
+                    <font class = "CompulsoryMsg">*</font>
+                  </ion-label>
+                  <ion-input  formControlName="photo" type= "file"
+                  class="upload" (change)="uploadphoFile($event.target.files)" 
+                  accept="image/*">
+                  </ion-input>
+                  </ion-item>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validation_messages.photo">
+                      <div class="error-message" *ngIf="validations_form.get('photo').hasError(validation.type) && (validations_form.get('photo').dirty || validations_form.get('photo').touched)">
+                        <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+
+                      <!-- Upload Supporting Document For Address -->
+                <ion-item lines="full">
+                  <ion-label position="stacked"> Supporting Document For Address  (Copy):
+                    <font class = "CompulsoryMsg">*</font>
+                  </ion-label>
+                  <ion-input  formControlName="supaddr" type= "file"
+                  class="upload" (change)="uploadsupaddFile($event.target.files)" 
+                  accept="image/*,.pdf">
+                  </ion-input>
+                  </ion-item>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validation_messages.supaddr">
+                      <div class="error-message" *ngIf="validations_form.get('supaddr').hasError(validation.type) && (validations_form.get('supaddr').dirty || validations_form.get('supaddr').touched)">
+                        <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+
+               
+                <div class="ion-padding">
+               
+                  <!-- Submit Button -->
+                  <ion-button type="submit" expand="medium" [disabled]="!validations_form.valid">
+                    Submit  <ion-icon name="send" slot="end"></ion-icon>
+                  </ion-button>
+                </div> 
+
+                </form>
+                </ion-card-content>            
+          </ng-template>
+          
+           <!-- Mobile version Form -->
+          <ng-template [ngIf]="mobileversion">
+          <ion-card-content> 
+            <form [formGroup]="mvalidations_form" (ngSubmit)="iceditmobile(mvalidations_form)">
+
+        <!-- Address -->
+        <ion-item lines="full">
+          <ion-label position="floating">Address:
+            <font class = "CompulsoryMsg">*</font>
+          </ion-label>
+          <ion-input type="text" formControlName="address"></ion-input>
+        </ion-item>
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of validation_messages.address">
+            <div class="error-message" *ngIf="mvalidations_form.get('address').hasError(validation.type) && (mvalidations_form.get('address').dirty || mvalidations_form.get('address').touched)">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </div>
+          </ng-container>
+        </div>
+
+      <!-- City -->
+      <ion-item lines="full">
+        <ion-label position="floating">City:
+          <font class = "CompulsoryMsg">*</font>
+        </ion-label>
+        <ion-input type="text" formControlName="city"></ion-input>
+      </ion-item>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validation_messages.city">
+          <div class="error-message" *ngIf="mvalidations_form.get('city').hasError(validation.type) && (mvalidations_form.get('city').dirty || mvalidations_form.get('city').touched)">
+            <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+
+
+    <!-- Postcode -->
+      <ion-item lines="full">
+        <ion-label position="floating">Postcode:
+          <font class = "CompulsoryMsg">*</font>
+        </ion-label>
+        <ion-input type="text" formControlName="postcode"></ion-input>
+      </ion-item>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validation_messages.postcode">
+          <div class="error-message" *ngIf="mvalidations_form.get('postcode').hasError(validation.type) && (mvalidations_form.get('postcode').dirty || mvalidations_form.get('postcode').touched)">
+            <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+
+      <!-- State -->
+      <ion-item lines="full">
+        <ion-label position="floating">State:
+          <font class = "CompulsoryMsg">*</font>
+        </ion-label>
+        <ion-select formControlName="state" cancelText="Cancel" okText="OK">
+          <ion-select-option *ngFor="let state of states" [value]="state">{{state}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validation_messages.state">
+          <div class="error-message" *ngIf="mvalidations_form.get('state').hasError(validation.type) && (mvalidations_form.get('state').dirty || mvalidations_form.get('state').touched)">
+            <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>              
+                       
+          <!-- Upload Front of IC -->
+          <ion-item lines="full">
+            <ion-label position="stacked"> Copy of Front IC:
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-input formControlName="frontic" type="file" accept="image/*,.pdf"
+            (change)="uploadfroicFile($event.target.files)" ></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.frontic">
+                <div class="error-message" *ngIf="mvalidations_form.get('frontic').hasError(validation.type) && (mvalidations_form.get('frontic').dirty || mvalidations_form.get('frontic').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
+
+          <!-- Upload Back of IC -->
+          <ion-item lines="full">
+            <ion-label position="stacked"> Copy of Back IC:
+              <font class = "CompulsoryMsg">*</font>
+            </ion-label>
+            <ion-input formControlName="backic" type="file" accept="image/*,.pdf"
+            (change)="uploadbacicFile($event.target.files)" ></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.backic">
+                <div class="error-message" *ngIf="mvalidations_form.get('backic').hasError(validation.type) && (mvalidations_form.get('backic').dirty || mvalidations_form.get('backic').touched)">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </div>
+              </ng-container>
+            </div> 
+
+                  <!-- Upload Photo -->
+                <ion-item lines="full">
+                  <ion-label position="stacked"> Upload Photo:
+                    <font class = "CompulsoryMsg">*</font>
+                  </ion-label>
+                  <ion-input  formControlName="photo" type= "file"
+                  class="upload" (change)="uploadphoFile($event.target.files)" 
+                  accept="image/*">
+                  </ion-input>
+                  </ion-item>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validation_messages.photo">
+                      <div class="error-message" *ngIf="mvalidations_form.get('photo').hasError(validation.type) && (mvalidations_form.get('photo').dirty || mvalidations_form.get('photo').touched)">
+                        <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+
+                      <!-- Upload Supporting Document For Address -->
+                <ion-item lines="full">
+                  <ion-label position="stacked"> Supporting Document For Address  (Copy):
+                    <font class = "CompulsoryMsg">*</font>
+                  </ion-label>
+                  <ion-input  formControlName="supaddr" type= "file"
+                  class="upload" (change)="uploadsupaddFile($event.target.files)" 
+                  accept="image/*,.pdf">
+                  </ion-input>
+                  </ion-item>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validation_messages.supaddr">
+                      <div class="error-message" *ngIf="mvalidations_form.get('supaddr').hasError(validation.type) && (mvalidations_form.get('supaddr').dirty || mvalidations_form.get('supaddr').touched)">
+                        <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+
+
+               
+                <div class="ion-padding">
+                  <!-- Submit Button -->
+                  <ion-button type="submit" expand="medium" [disabled]="!mvalidations_form.valid">
+                    Submit  <ion-icon name="send" slot="end"></ion-icon>
+                  </ion-button>
+                </div> 
+
+                </form>
+                </ion-card-content>            
+        </ng-template>  
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+</div>
+
+</ion-content>

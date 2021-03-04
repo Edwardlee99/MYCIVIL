@@ -1,0 +1,38 @@
+<!-- User List -->
+<ion-header>
+  <ion-toolbar color="primary" mode="md">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Citizens List</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="main-grid ion-no-padding">
+    <div class="glob-container">
+        <ion-list lines="none" style="margin-bottom: 0px">
+          <ion-item>
+            <ion-searchbar [(ngModel)]="term" placeholder="Citizen name, IC, Race, Religion ..."
+              showCancelButton="focus">
+            </ion-searchbar>
+          </ion-item>
+        </ion-list>
+      
+        <ion-virtual-scroll [items]="users | fuse:term:options"  approxItemHeight="80px" [trackBy]="trackByName">
+        <ion-item *virtualItem="let user" button (click)="navigateToUserDetails(user.IC)" style="padding-top: 1px">
+          <ion-avatar slot="start">
+            <ion-img [src]="user.IMAGE"
+              (ionError)="$event.target.src = 'assets/image/no_img.png'"></ion-img>
+          </ion-avatar>
+          <ion-text>
+            <h2>{{ user.NAME }}</h2>
+            <p>{{ user.IC }}</p>
+          </ion-text>
+        </ion-item>
+      </ion-virtual-scroll>
+      
+      </div>
+      
+      </ion-grid>
+</ion-content>

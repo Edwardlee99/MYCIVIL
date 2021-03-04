@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar mode="md" color="primary">
+    <ion-title> {{type}} List </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="main-grid ion-no-padding">
+    <div class="glob-container">
+        <ion-list lines="none" style="margin-bottom: 0px">
+          <ion-item>
+            <ion-searchbar [(ngModel)]="term" placeholder="Name, Start Date, Status Date, IC"
+              showCancelButton="focus">
+            </ion-searchbar>
+          </ion-item>
+        </ion-list>
+      
+        <ion-virtual-scroll [items]="approves| fuse:term:options" approxItemHeight="80px" [trackBy]="trackByDate">
+        <ion-item *virtualItem="let approve" button (click)="navigateToApprDetails(approve.ID)" style="padding-top: 1px" >
+          <ion-text>
+            <h2>{{ approve.IC }}</h2>
+            <p> Name: {{ approve.NAME }}</p>
+            <p> Email: {{ approve.EMAIL }}</p>
+            <p> Contact No.: {{ approve.TELNO }}</p>
+            <p> Start Date For Apply: {{ approve.STARTDATE }}</p>
+          </ion-text>
+        </ion-item>
+      </ion-virtual-scroll>
+      
+      </div>
+      </ion-grid>
+
+</ion-content>

@@ -1,0 +1,179 @@
+<ion-content [fullscreen]="true">
+  <div class="glob-container">
+
+    <ng-template [ngIf]="citizenRole">  
+  <ion-card header class="ion-align-items-start ion-align-items-stretch">
+    <ion-card-header class="text" color="light">
+      Personal
+      <hr class="ion-margin-top ion-margin-button hr-custom" />
+    </ion-card-header>
+    <ng-template [ngIf]="isRenew">  
+    <ion-item [routerLink]="['/renew-ic']" detail="true" button="true" lines="full">
+      <ion-icon src="assets/image/renew-card.svg" slot="start"></ion-icon>
+      <ion-label>Renew Identification Card</ion-label>
+    </ion-item>
+  </ng-template>  
+
+
+    <ion-item [routerLink]="['/edit-ic']" detail="true" button="true" lines="full">
+      <ion-icon src="assets/image/edit.svg" slot="start"></ion-icon>
+      <ion-label>Edit Identification Card</ion-label>
+    </ion-item>
+  </ion-card>
+
+
+  <ion-card header class="ion-align-items-start ion-align-items-stretch">
+    <ion-card-header class="text" color="light">
+      Children
+      <hr class="ion-margin-top ion-margin-button hr-custom" />
+    </ion-card-header>
+    <ng-template [ngIf]="hasChild">  
+    <ion-item [routerLink]="['/children-profile']" detail="true" button="true" lines="full">
+      <ion-icon src="assets/image/children.svg" slot="start"></ion-icon>
+      <ion-label>Children Profile</ion-label>
+    </ion-item>
+    </ng-template>
+
+    <ion-item [routerLink]="['/birth-register']" detail="true" button="true" lines="full">
+      <ion-icon src="assets/image/baby.svg" slot="start"></ion-icon>
+      <ion-label>Register Birth Certificate</ion-label>
+    </ion-item>
+  
+    <ion-item [routerLink]="['/ic-register']" detail="true" button="true" lines="full">
+      <ion-icon src="assets/image/card.svg" slot="start"></ion-icon>
+      <ion-label>Register Identification Card</ion-label>
+    </ion-item>
+  </ion-card>
+
+  <ng-template [ngIf]="viewReligion">
+  <ion-card header class="ion-align-items-start ion-align-items-stretch">
+    <ion-card-header class="text" color="light">
+      Marriage
+      <hr class="ion-margin-top ion-margin-button hr-custom" />
+    </ion-card-header>
+    <ng-template [ngIf]="hasMarry">  
+    <ion-item [routerLink]="['/marriage-profile']" detail="true" button="true" lines="full">
+      <ion-icon src="assets/image/couple.svg" slot="start"></ion-icon>
+      <ion-label>Marriage Profile</ion-label>
+    </ion-item>
+  </ng-template>
+
+  <ng-template [ngIf]="canMarry">    
+    <ion-item [routerLink]="['/marry-register']" detail="true" button="true" lines="full">
+      <ion-icon src="assets/image/marry.svg" slot="start"></ion-icon>
+      <ion-label>Register Marriage</ion-label>
+    </ion-item>
+  </ng-template>  
+    
+  </ion-card>
+  </ng-template>
+  
+  </ng-template>
+
+
+  <ng-template [ngIf]="staffRole">
+  <ion-card header class="ion-align-items-start ion-align-items-stretch">
+    <ion-card-header class="text" color="light">
+      Staff
+      <hr class="ion-margin-top ion-margin-button hr-custom" />
+    </ion-card-header>
+    <ion-item [routerLink]="['/add_user']" detail="true" button="true" lines="full">
+      <ion-icon src="assets/image/citizen.svg" slot="start"></ion-icon>
+      <ion-label>Add Citizen Profile</ion-label>
+    </ion-item>
+
+    <ion-item [routerLink]="['/citizen']" detail="true" button="true" lines="full">
+      <ion-icon src="assets/image/edit-profile.svg" slot="start"></ion-icon>
+      <ion-label>Modify Citizen Profile</ion-label>
+    </ion-item>
+
+    <ion-item [routerLink]="['/approval']" detail="true" button="true" lines="full">
+      <ion-icon src="assets/image/approve.svg" slot="start"></ion-icon>
+      <ion-label>Approval Flow</ion-label>
+    </ion-item>
+<!-- 
+    <ion-item [routerLink]="['/approval']" detail="true" button="true" lines="full" >
+      <ion-icon src="assets/image/add-hour.svg" slot="start"></ion-icon>
+      <ion-label>Add Operation Hours</ion-label>
+    </ion-item>
+
+    <ion-item [routerLink]="['/approval']" detail="true" button="true" lines="full" >
+      <ion-icon src="assets/image/edit-hour.svg" slot="start"></ion-icon>
+      <ion-label>Modify Operation Hours</ion-label>
+    </ion-item> -->
+  </ion-card>
+  </ng-template>
+
+
+<ion-card header class="ion-align-items-start ion-align-items-stretch">
+  <ion-card-header class="text" color="light">
+    Information Resources
+    <hr class="ion-margin-top ion-margin-button hr-custom" />
+  </ion-card-header>
+  
+  <ion-item [routerLink]="['/feedback']" detail="true" button="true" lines="full">
+    <ion-icon src="assets/image/feedback.svg" slot="start"></ion-icon>
+    <ion-label>MYCIVIL Feedback </ion-label>
+  </ion-item>
+
+  <ion-item button (click)="gotoPage('https://www.jpn.gov.my/my/soalan-lazim/soalan-lazim-kad-pengenalan')" detail="true" button="true" lines="full">
+    <ion-icon src="assets/image/faq.svg" slot="start"></ion-icon>
+    <ion-label>FAQ</ion-label>
+  </ion-item>
+
+  <ion-item button (click)="gotoPage('https://www.jpn.gov.my/my/perkhidmatan/kad-pengenalan')" detail="true" button="true" lines="full">
+    <ion-icon src="assets/image/information.svg" slot="start"></ion-icon>
+    <ion-label>Help Centre</ion-label>
+  </ion-item>
+
+  <ion-item button (click)="gotoPage('https://www.jpn.gov.my/my/hubungi-kami/direktori-kakitangan')" detail="true" button="true" lines="full">
+    <ion-icon name="call" slot="start"></ion-icon>
+    <ion-label>Contact Us by Department</ion-label>
+  </ion-item>
+
+  <ion-item button (click)="gotoPage('https://www.jpn.gov.my/my/hubungi-kami/direktori-cawangan')" detail="true" button="true" lines="full">
+    <ion-icon name="call" slot="start"></ion-icon>
+    <ion-label>Contact Us by Branch</ion-label>
+  </ion-item>
+
+  <ion-item button (click)="gotoPage('https://jpn.spab.gov.my/eApps/system/index.do')" detail="true" button="true" lines="full">
+    <ion-icon src="assets/image/review.svg" slot="start"></ion-icon>
+    <ion-label>SISPAA JPN</ion-label>
+  </ion-item>
+
+  <ion-item button (click)="gotoPage('https://www.jpn.gov.my/en/corporate-information/organisation-division')" detail="true" button="true" lines="full">
+    <ion-icon src="assets/image/flowchart.svg" slot="start"></ion-icon>
+    <ion-label>Organisation & Division</ion-label>
+  </ion-item>
+
+  <ion-item button (click)="gotoPage('https://www.jpn.gov.my/my/pengumuman/569-waktu-operasi-kaunter')"  detail="true" button="true" lines="full">
+    <ion-icon src="assets/image/work-time.svg" slot="start"></ion-icon>
+    <ion-label>Operation Hours</ion-label>
+  </ion-item>
+</ion-card>
+
+  <ion-card header class="ion-align-items-start ion-align-items-stretch">
+    <ion-card-header class="text" color="light">
+      Other
+      <hr class="ion-margin-top ion-margin-button hr-custom" />
+    </ion-card-header>
+    <ion-item [routerLink]="['/profile']" detail="true" button="true" lines="full" >
+      <ion-icon name="person-circle-outline" slot="start"></ion-icon>
+      <ion-label>Profile</ion-label>
+    </ion-item>
+
+    <ion-item [routerLink]="['/settings']" detail="true" button="true" lines="full">
+      <ion-icon src="assets/image/settings.svg" slot="start"></ion-icon>
+      <ion-label>Settings</ion-label>
+    </ion-item>
+
+    <ion-item button (click)="logout()" detail="true" button="true" lines="full">
+      <ion-icon name="log-out-outline" slot="start"></ion-icon>
+      <ion-label>Logout</ion-label>
+    </ion-item>
+
+  </ion-card>
+
+  
+</div>
+</ion-content>

@@ -1,0 +1,15 @@
+
+  /* Content
+    ===============================*/
+
+    .main-grid {
+        padding-top: constant(safe-area-inset-top); //for iOS 11.2
+        padding-top: env(safe-area-inset-top); //for iOS 11.1
+        background: #1e2d85;
+      }
+
+      ion-grid {
+        min-height: 100%;
+      }
+
+    

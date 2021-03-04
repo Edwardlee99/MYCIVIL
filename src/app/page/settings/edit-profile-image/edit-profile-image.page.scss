@@ -1,0 +1,71 @@
+/* Settings font size
+  =========================================*/
+  $font-size-button: 16px;
+
+  
+  /* Submit font weight
+    =========================================*/
+  $font-weight-button: 700;
+ 
+  /* Submit text color
+    =========================================*/
+
+  $text-color-button: #ffffff;
+
+  
+  /* Content
+    ===============================*/
+ 
+  .main-grid {
+    padding-top: constant(safe-area-inset-top); //for iOS 11.2
+    padding-top: env(safe-area-inset-top); //for iOS 11.1
+  }
+  
+  ion-grid {
+    min-height: 100%;
+  }
+  
+  
+  /* Settings full button - button
+        ===============================*/
+  .option-button {
+    display: block;
+    min-height: 50px;
+    border-radius: 50px;
+    margin-top: 25px;
+    color: $text-color-button;
+    font-size: $font-size-button;
+    font-weight: $font-weight-button;
+    letter-spacing: 2px;
+  
+  }
+  /* Responsive for tablet
+   ===============================*/
+  @media (min-width: 576px) {
+    ion-grid {
+      position: relative;
+    }
+    .title-text-wrapper {
+      margin: 30px 0 !important;
+    }
+    h1,
+    h2 {
+      line-height: 40px !important;
+      font-size: 37px;
+      text-align: left;
+    }
+    form {
+      margin-top: 0 !important;
+    }
+  }
+
+  .profile-image {
+    margin-bottom: 15px !important;
+    margin: auto;
+    width: 50%;
+    height: 100%;
+  }
+  
+  img {
+    border-radius: 11px;
+  }

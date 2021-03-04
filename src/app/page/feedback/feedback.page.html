@@ -1,0 +1,122 @@
+<!-- MYCIVIL FeedBack Page -->
+<ion-header>
+ <ion-toolbar color="primary" mode="md">
+    <ion-title>Feedback</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="glob-container">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-xs="12" size-md="5" push-md="7">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title color="danger" class="text-bold">Important Notice</ion-card-title>
+            </ion-card-header>
+            <ion-card-content class="ion-padding-top">
+              <ion-text>
+                <p>
+                  This Service can be used when you have any questions, concerns, or feature request <ion-text
+                    color="danger">related to MYCIVIL</ion-text>.
+                </p>
+                <br>
+                <p>
+                  The feedback will be received by the <span class="text-bold">Information Technology Division</span>
+                  and we will do our best to keep up the standards so you enjoy our service.
+                </p>
+                <br>
+                <p class="text-bold">
+                  Please note that your identity or contact information will BE REVEALED to the person receiving this
+                  Feedback.
+                </p>
+                <br>
+                <ion-text color="danger">
+                  <p>
+                    If you have a feedback which is not related to the MYCIVIL (ex: feedback related to registration 
+                    or renew idetification cards...), you can use our
+                    <a tappable="true" class="text-bold" (click)="openOnlineFeedbackSystem()">Online Feedback System</a>
+                    to send your feedback to the person who is in charge.
+                  </p>
+                </ion-text>
+              </ion-text>
+
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+        <ion-col size-xs="12" size-md="7" pull-md="5">
+          <ion-card>
+            <ion-card-header color="primary">
+              <ion-card-title>Your Feedback</ion-card-title>
+            </ion-card-header>
+            <ion-card-content class="ion-no-padding">
+              <form [formGroup]="feedback_form" (ngSubmit)="feedback(feedback_form)">
+              
+              <!-- Message -->
+              <ion-item lines="full">
+                <ion-label position="floating">Message:</ion-label>
+                <ion-textarea formControlName="message"></ion-textarea>
+              </ion-item>
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.message">
+                  <div class="error-message" *ngIf="feedback_form.get('message').hasError(validation.type) && (feedback_form.get('message').dirty || feedback_form.get('message').touched)">
+                    <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                  </div>
+                </ng-container>
+              </div>
+              
+
+               <!-- Phone Section -->
+                <div formGroupName="country_phone">
+                  <!-- Input-field-country code -->
+                  <ion-item lines="full">
+                  <ion-label position="floating"> Country: (Optional)
+                  </ion-label>
+                  <ion-select formControlName="country" cancelText="Cancel" okText="OK">
+                    <ion-select-option *ngFor="let item of countries" [value]="item">{{item.name}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+
+                <!-- Input-field-Telephone number -->
+                <ion-item lines="full">
+                  <ion-label position="floating"> Telephone No.: (Optional)
+                   
+                  </ion-label>
+                <ion-input placeholder="{{ feedback_form.value.country_phone.country.sample_phone }}" type="text" formControlName="phone" ></ion-input>
+              </ion-item>
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.phone">
+                  <div class="error-message" *ngIf="feedback_form.get('country_phone').get('phone').hasError(validation.type) && (feedback_form.get('country_phone').get('phone').dirty || feedback_form.get('country_phone').get('phone').touched)">
+                    <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                  </div>
+                </ng-container>
+                </div>
+                </div>
+
+            <!-- Upload Picture -->
+            <ion-item lines="full" button>
+              <ion-label position="stacked"> Screenshot: (Optional)
+              </ion-label>
+              <ion-input  formControlName="picture" type= "file"
+              class="upload" (change)="uploadFile($event.target.files)" 
+              accept="image/*">
+              </ion-input>
+              </ion-item>
+            
+              <div class="ion-padding">
+                <ion-button type="submit" expand="full" [disabled]="!feedback_form.valid">
+                  Submit <ion-icon name="send" slot="end"></ion-icon>
+                </ion-button>
+               </div>
+              </form>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

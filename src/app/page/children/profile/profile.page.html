@@ -1,0 +1,38 @@
+<!-- Children Profile List -->
+<ion-header>
+  <ion-toolbar color="primary" mode="md">
+     <ion-title>Children List</ion-title>
+     <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+   </ion-toolbar>
+ </ion-header>
+
+<ion-content>
+  <div class="glob-container">
+  <ion-grid class="main-grid ion-no-padding">
+  
+        <ion-list lines="none" style="margin-bottom: 0px">
+          <ion-item>
+            <ion-searchbar [(ngModel)]="term" placeholder="Children name, IC, Birth Certificate ..."
+              showCancelButton="focus">
+            </ion-searchbar>
+          </ion-item>
+        </ion-list>
+      
+        <ion-virtual-scroll [items]="childs | fuse:term:options"  approxItemHeight="80px">
+        <ion-item *virtualItem="let child" button (click)="navigateToChildrenDetails( child.BIRTHCERNO )" style="padding-top: 1px">
+          <ion-avatar slot="start">
+            <ion-img [src]="child.IMAGE"
+              (ionError)="$event.target.src = 'assets/image/no_img.png'"></ion-img>
+          </ion-avatar>
+          <ion-text>
+            <h2>{{ child.NAME }}</h2>
+            <p>{{ child.BIRTHCERNO }}</p>
+            <p>{{ child.IC }}</p>
+          </ion-text>
+        </ion-item>
+      </ion-virtual-scroll>    
+      </ion-grid>
+    </div>
+</ion-content>

@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar mode="md" color="primary">
+    <ion-title>
+      Edit Profile
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size-xs="12" size-md="7" offset-md="2">
+
+    <ion-card>
+            <ion-card-content class="ion-no-padding">
+              <form [formGroup]="validations_form" (ngSubmit)="editprofile()">
+  
+               <!-- Input-field-full name -->
+               <ion-item lines="full">
+                <ion-label position="floating"> Full Name:
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input type="text" formControlName="name" [placeholder]="'Full Name as per NRIC'" value="{{username}}"></ion-input>
+              </ion-item>
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.name">
+                  <div class="error-message" *ngIf="validations_form.get('name').hasError(validation.type) && (validations_form.get('name').dirty || validations_form.get('name').touched)">
+                    <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                  </div>
+                </ng-container>
+              </div>
+
+                <!-- Phone Section -->
+                <div formGroupName="country_phone">
+                  <!-- Input-field-country code -->
+                  <ion-item lines="full">
+                  <ion-label position="floating"> Country:
+                    <font class = "CompulsoryMsg">*</font>
+                  </ion-label>
+                  <ion-select formControlName="country" cancelText="Cancel" okText="OK">
+                    <ion-select-option *ngFor="let item of countries" [value]="item">{{item.name}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+
+                <!-- Input-field-Telephone number -->
+                <ion-item lines="full">
+                  <ion-label position="floating"> Telephone:
+                    <font class = "CompulsoryMsg">*</font>
+                  </ion-label>
+                <ion-input value="{{userphone}}" placeholder="{{ validations_form.value.country_phone.country.sample_phone }}" type="text" formControlName="phone"></ion-input>
+              </ion-item>
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.phone">
+                  <div class="error-message" *ngIf="validations_form.get('country_phone').get('phone').hasError(validation.type) && (validations_form.get('country_phone').get('phone').dirty || validations_form.get('country_phone').get('phone').touched)">
+                    <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                  </div>
+                </ng-container>
+                </div>
+                </div>
+              
+              
+              <!-- Edit Profile Button -->
+              <div class="ion-padding">
+          <ion-button type="submit" expand="full" [disabled]="!validations_form.valid">
+            Change  <ion-icon name="send" slot="end"></ion-icon>
+          </ion-button>
+         </div>
+        </form>
+      </ion-card-content>
+       </ion-card>
+       
+        
+          </ion-col>
+        </ion-row>
+</ion-grid>
+</ion-content>

@@ -1,0 +1,44 @@
+  
+
+.text-bold {
+    font-weight: bold !important;
+  }
+  
+  /* Content
+    ===============================*/
+
+    .main-grid {
+        padding-top: constant(safe-area-inset-top); //for iOS 11.2
+        padding-top: env(safe-area-inset-top); //for iOS 11.1
+      }
+
+      ion-grid {
+        min-height: 100%;
+      }  
+
+
+      .profile-image {
+        margin-bottom: 15px !important;
+        margin: auto;
+        width: 50%;
+        height: 100%;
+      }
+      
+      img {
+        border-radius: 11px;
+      }
+
+      .text-bold {
+        font-weight: bold !important;
+      }
+
+      .hr-custom {
+        border: 2px solid var(--ion-color-secondary);
+        width: 100%;
+      }
+      
+
+
+        
+ 
+  

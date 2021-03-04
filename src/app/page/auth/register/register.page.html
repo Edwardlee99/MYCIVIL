@@ -1,0 +1,124 @@
+<!-- Register Page -->
+<ion-content>
+  <ion-grid class="main-grid ion-no-padding">
+    <ion-row>
+      <ion-col size-xs="12" size-md="7" offset-md="2">
+
+      <!-- Form & Welcome Message -->
+    <ion-card>
+      <ion-card-header color="primary">
+        <ion-card-title>Register Form</ion-card-title>
+          </ion-card-header>
+            <ion-card-content class="ion-no-padding">
+              <form [formGroup]="validations_form" (ngSubmit)="register()">
+
+                 <!-- Input-field-ic -->
+                 <ion-item lines="full">
+                  <ion-label position="floating"> Identification Card Number :
+                    <font class = "CompulsoryMsg">*</font>
+                  </ion-label>
+                  <ion-input type="text" formControlName="ic" [placeholder]="'New NRIC No.'"></ion-input>
+                  </ion-item>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validation_messages.ic">
+                      <div class="error-message" *ngIf="validations_form.get('ic').hasError(validation.type) && (validations_form.get('ic').dirty || validations_form.get('ic').touched)">
+                        <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+                
+
+               <!-- Input-field-full name -->
+               <ion-item lines="full">
+                <ion-label position="floating"> Full Name:
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input type="text" formControlName="name" [placeholder]="'Full Name as per NRIC'"></ion-input>
+              </ion-item>
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.name">
+                  <div class="error-message" *ngIf="validations_form.get('name').hasError(validation.type) && (validations_form.get('name').dirty || validations_form.get('name').touched)">
+                    <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                  </div>
+                </ng-container>
+              </div>
+              
+              <!-- Input-field-email -->
+              <ion-item lines="full">
+                <ion-label position="floating"> Email:
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input type="text" formControlName="email" [placeholder]="'Exp:john@mail.com'"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.email">
+                    <div class="error-message" *ngIf="validations_form.get('email').hasError(validation.type) && (validations_form.get('email').dirty || validations_form.get('email').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+
+                <!-- Phone Section -->
+                <div formGroupName="country_phone">
+                  <!-- Input-field-country code -->
+                  <ion-item lines="full">
+                  <ion-label position="floating"> Country:
+                    <font class = "CompulsoryMsg">*</font>
+                  </ion-label>
+                  <ion-select formControlName="country" cancelText="Cancel" okText="OK">
+                    <ion-select-option *ngFor="let item of countries" [value]="item">{{item.name}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+
+                <!-- Input-field-Telephone number -->
+                <ion-item lines="full">
+                  <ion-label position="floating"> Telephone:
+                    <font class = "CompulsoryMsg">*</font>
+                  </ion-label>
+                <ion-input placeholder="{{ validations_form.value.country_phone.country.sample_phone }}" type="text" formControlName="phone" (keyup.enter)="register()"></ion-input>
+              </ion-item>
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.phone">
+                  <div class="error-message" *ngIf="validations_form.get('country_phone').get('phone').hasError(validation.type) && (validations_form.get('country_phone').get('phone').dirty || validations_form.get('country_phone').get('phone').touched)">
+                    <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                  </div>
+                </ng-container>
+                </div>
+                </div>
+
+              
+              
+              <!-- Register Button -->
+              <div class="ion-padding">
+          <ion-button type="submit" expand="full" [disabled]="!validations_form.valid">
+            Register  <ion-icon name="send" slot="end"></ion-icon>
+          </ion-button>
+         </div>
+        </form>
+      </ion-card-content>
+       </ion-card>
+       
+           <!-- Useful Links -->
+           <div description class="ion-text-center">
+            <ion-row>
+              
+              <!-- Login Account Link -->
+              <ion-col size="12" class="ion-no-padding ion-margin-top">
+                <p class="ion-no-margin ion-no-padding">Already Have an Account? <a routerLink="/login"
+                    routerDirection="forward">Login Your Account</a> </p>
+              </ion-col>
+
+                <!-- Forget Password Link -->
+                <ion-col size="12" class="ion-no-padding ion-no-margin">
+                  <p class="ion-no-margin ion-no-padding">Forgot Your Password? <a routerLink="/forget"
+                    routerDirection="forward">Reset Your Password</a>
+                  </p>
+                </ion-col>
+            </ion-row>
+          </div>
+          </ion-col>
+        </ion-row>
+</ion-grid>
+</ion-content>
+
+

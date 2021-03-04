@@ -1,0 +1,123 @@
+<ion-header>
+  <ion-toolbar mode="md" color="primary">
+    <ion-title>
+      Edit Profile
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="main-grid ion-no-padding">
+    <ion-row>
+      <ion-col size-xs="12" size-lg="4" size-md="7" offset-md="4">
+      <ion-card>
+    <span *ngIf="!uploadimage; else upload">
+    <span *ngIf="!takeimage; else take">
+    <ion-card-content style="padding-top: 0px">
+  
+    <!-- Upload Picture Button -->
+      <ion-col size="12" class="ion-no-padding">
+        <ion-button (click)="uploadpicture()" class="option-button ion-no-margin">
+          <span>Upload Picture</span>
+        </ion-button>
+      </ion-col> 
+
+   <ng-template [ngIf]="mobilephone">
+      <!-- Take Picture Button -->
+   <ion-col size="12" class="ion-no-padding">
+    <ion-button (click)="takepicture()" class="option-button ion-no-margin">
+      <span>Take Picture</span>
+    </ion-button>
+  </ion-col> 
+</ng-template>
+  </ion-card-content>
+  </span>
+</span>
+
+<!-- Upload Photo -->
+<ng-template #upload>
+  <ion-card-header>
+    <ion-card-title>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              Edit Picture
+            </ion-col>
+            <ion-col>
+              <ion-button fill="solid" color="medium" size="small" (click)="uploadimage = false">
+                Cancel
+              </ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button fill="solid" color="success" size="small" (click)="UpdatePicture()" [disabled]="!picture_form.valid">
+                Update
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+  <form [formGroup]="picture_form" (ngSubmit)="UpdatePicture()">
+  
+              <!-- Upload Picture -->
+              <ion-item lines="full">
+                <ion-label position="stacked"> Picture:
+                  <font class = "CompulsoryMsg">*</font>
+                </ion-label>
+                <ion-input  formControlName="picture" type= "file"
+                class="upload" (change)="uploadFile($event.target.files)" 
+                accept="image/*">
+                </ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.picture">
+                    <div class="error-message" *ngIf="picture_form.get('picture').hasError(validation.type) && (picture_form.get('picture').dirty || picture_form.get('picture').touched)">
+                      <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+  
+
+      </form>
+    </ion-card-content>
+</ng-template>
+
+<!-- take Photo -->
+<ng-template #take>
+  <ion-card-header>
+    <ion-card-title>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              Take Picture
+            </ion-col>
+            <ion-col>
+              <ion-button fill="solid" color="medium" size="small" (click)="takeimage = false">
+                Cancel
+              </ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button fill="solid" color="success" size="small" (click)="UploadPicture()">
+                Update
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-avatar class="profile-image">
+        <img id="bg" [src]="capturedSnapURL">
+      </ion-avatar>
+    </ion-card-content>
+</ng-template>
+
+</ion-card>
+</ion-col>
+</ion-row>
+</ion-grid>
+</ion-content>
