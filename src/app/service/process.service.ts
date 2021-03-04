@@ -1380,9 +1380,7 @@ export class ProcessService {
             console.log(error);
           })
           
-          this.alertservice.presentToast("The register of identification cards is submitted!!!");
-          this.router.navigate(['/tabs/more']);
-          this.sendregisteric(parentname, birth,name,email).subscribe();  
+       
          
         loading.dismiss();
       });
