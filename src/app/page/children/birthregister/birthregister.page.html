@@ -954,7 +954,7 @@
             <ion-label position="floating">Baby Birth Date:
               <font class = "CompulsoryMsg">*</font>
             </ion-label>
-            <ion-datetime formControlName="birthdate"></ion-datetime>
+            <ion-datetime [min]="minDate" [max]="maxDate" formControlName="birthdate"></ion-datetime>
           </ion-item>
           <div class="validation-errors">
             <ng-container *ngFor="let validation of validation_messages.birthdate">
@@ -1267,7 +1267,7 @@
             <ion-label position="floating">Baby Birth Date:
               <font class = "CompulsoryMsg">*</font>
             </ion-label>
-            <ion-datetime formControlName="birthdate"></ion-datetime>
+            <ion-datetime [min]="minDate" [max]="maxDate" formControlName="birthdate"></ion-datetime>
           </ion-item>
           <div class="validation-errors">
             <ng-container *ngFor="let validation of validation_messages.birthdate">

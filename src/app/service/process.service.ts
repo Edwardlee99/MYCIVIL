@@ -58,7 +58,7 @@ export class ProcessService {
         loading.present();
     
       
-        check.ref.where("status", "in" ,"[complete,approve]").get().then( doc => {
+        check.ref.where("status", "in" ,["complete","approve"]).get().then( doc => {
           //To check have register the birth certificate again 
             if(!doc.empty){
               this.alertservice.presentToast("You have register birth certificate again!!!")
@@ -340,7 +340,7 @@ export class ProcessService {
           translucent: true,
         }).then(loading => {
           loading.present();
-          check.ref.where("status", "in" ,"[complete,approve]").get().then( doc => {
+          check.ref.where("status", "in" ,["complete","approve"]).get().then( doc => {
             //To check have register the birth certificate again 
               if(!doc.empty){
                 this.alertservice.presentToast("You have register birth certificate again!!!")
@@ -674,7 +674,7 @@ export class ProcessService {
        translucent: true,
      }).then(loading => {
        loading.present();
-       check.ref.where("status", "in" ,"[complete,approve]").get().then( doc => {
+       check.ref.where("status", "in" ,["complete","approve"]).get().then( doc => {
          //To check have register the birth certificate again 
            if(!doc.empty){
              this.alertservice.presentToast("You have register birth certificate again!!!")
@@ -928,7 +928,7 @@ export class ProcessService {
        translucent: true,
      }).then(loading => {
        loading.present();
-       check.ref.where("status", "in" ,"[complete,approve]").get().then( doc => {
+       check.ref.where("status", "in" ,["complete","approve"]).get().then( doc => {
          //To check have register the birth certificate again 
            if(!doc.empty){
              this.alertservice.presentToast("You have register birth certificate again!!!")
@@ -1373,14 +1373,16 @@ export class ProcessService {
       
           this.alertservice.presentToast("The register of identification cards is submitted!!!");
           this.router.navigate(['/tabs/more']);
-          this.sendregisteric(parentname, birth,name,email).subscribe;  
+          this.sendregisteric(parentname, birth,name,email).subscribe();  
           
           }
           }, error => { // check parentic error
             console.log(error);
           })
           
-        console.log(parentname);
+          this.alertservice.presentToast("The register of identification cards is submitted!!!");
+          this.router.navigate(['/tabs/more']);
+          this.sendregisteric(parentname, birth,name,email).subscribe();  
          
         loading.dismiss();
       });
