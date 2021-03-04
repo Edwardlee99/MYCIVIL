@@ -101,7 +101,7 @@
               </ion-button>
             </ion-col>
             <ion-col>
-              <ion-button fill="solid" color="success" size="small" (click)="UploadPicture()">
+              <ion-button fill="solid" color="success" size="small" (click)="UploadPicture(capturedSnapURL)">
                 Update
               </ion-button>
             </ion-col>
@@ -111,7 +111,7 @@
     </ion-card-header>
     <ion-card-content>
       <ion-avatar class="profile-image">
-        <img id="bg" [src]="capturedSnapURL">
+        <img id="bg" [src]="capturedSnapURL" >
       </ion-avatar>
     </ion-card-content>
 </ng-template>

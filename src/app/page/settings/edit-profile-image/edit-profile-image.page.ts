@@ -16,6 +16,8 @@ export class EditProfileImagePage implements OnInit {
   takeimage = false;
   uploadimage = false;
   mobilephone = false;
+  aa: any;
+  dd: any;
   picture_form: FormGroup;
   id: string;
   capturedSnapURL:string;
@@ -94,9 +96,10 @@ export class EditProfileImagePage implements OnInit {
 
     takepicture(){
       this.camera.getPicture(this.cameraOptions).then((imageData) => {
-        // this.camera.DestinationType.FILE_URI gives file URI saved in local
-        // this.camera.DestinationType.DATA_URL gives base64 URI
-        
+      //this.camera.DestinationType.FILE_URI gives file URI saved in local
+
+       //this.camera.DestinationType.DATA_URL gives base64 URI
+      
         let base64Image = 'data:image/jpeg;base64,' + imageData;
         this.capturedSnapURL = base64Image;
         this.takeimage = true;

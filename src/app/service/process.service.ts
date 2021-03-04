@@ -1617,7 +1617,7 @@ export class ProcessService {
             const fileRef3 = this.storage.ref(uplphoto);
       
             //To upload supporting document for address path
-            var supappr = `approval/ic/supportingdocumentaddress/${new Date().getTime()}_${'suppaddr'}_${ic}`;
+            var supappr = `approval/renewic/supportingdocumentaddress/${new Date().getTime()}_${'suppaddr'}_${ic}`;
             var suurl = "";
             const fileRef4 = this.storage.ref(supappr);
       
