@@ -16,8 +16,6 @@ export class EditProfileImagePage implements OnInit {
   takeimage = false;
   uploadimage = false;
   mobilephone = false;
-  aa: any;
-  dd: any;
   picture_form: FormGroup;
   id: string;
   capturedSnapURL:string;
