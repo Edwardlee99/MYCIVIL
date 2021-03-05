@@ -1579,7 +1579,7 @@ export class ProcessService {
         translucent: true,
       }).then(loading => {
         loading.present();
-        dataRef.ref.where("ic", "==", ic).where("status", "in", ['progress', 'complete','approve']).get().then( doc => {
+        dataRef.ref.where("ic", "==", ic).where("status", "in", ['progress', 'complete','approve']).where("type","==","ic-renew").get().then( doc => {
           if(!doc.empty){
             this.alertservice.presentToast("You have submit renew identification cards already or the staff completed your renew identification cards services!!!")
           }else{
@@ -1702,7 +1702,7 @@ export class ProcessService {
    translucent: true,
  }).then(loading => {
    loading.present();
-   dataRef.ref.where("ic", "==", ic).where("status", "in", ['progress', 'complete','approve']).get().then( doc => {
+   dataRef.ref.where("ic", "==", ic).where("status", "in", ['progress', 'complete','approve']).where("type","==","ic-renew").get().then( doc => {
      if(!doc.empty){
        this.alertservice.presentToast("You have submit renew identification cards already or the staff completed your renew identification cards services!!!")
      }else{
