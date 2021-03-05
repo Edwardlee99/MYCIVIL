@@ -3381,7 +3381,6 @@ export class ProcessService {
     completeeditic(id, type,staffname, email){
       let headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
       let todaydate =this.datepipe.transform(Date.now(), 'dd-MM-yyyy');
-      var edit = this.firestore.collection(this.profile);
       var check = this.firestore.collection(this.approval).doc(id);
       this.loadingCtrl.create({
         spinner: 'circles',
@@ -3397,7 +3396,7 @@ export class ProcessService {
 
         check.get().subscribe(doc=>{
           var ic = doc.data()["ic"];
-          edit.doc(ic).update({
+          this.firestore.doc(this.profile + '/' + ic).update({
             address: doc.data()["adress"],
             state: doc.data()["state"],
             city: doc.data()["city"],
@@ -3424,7 +3423,6 @@ export class ProcessService {
     completerenewic(id, type,staffname, email){
       let headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
       let todaydate =this.datepipe.transform(Date.now(), 'dd-MM-yyyy');
-      var renew = this.firestore.collection(this.profile);
       var check = this.firestore.collection(this.approval).doc(id);
       this.loadingCtrl.create({
         spinner: 'circles',
@@ -3440,7 +3438,7 @@ export class ProcessService {
 
         check.get().subscribe(doc=>{
           var ic = doc.data()["ic"];
-          renew.doc(ic).update({
+          this.firestore.doc(this.profile + '/' + ic).update({
             renew: "true"
           })
         
