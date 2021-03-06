@@ -61,10 +61,10 @@ export class ProfilePage implements OnInit {
             this.authService.read_marry().ref.where("womanic", "==" , this.id).where("status", "==", "married").get().then( doc => {
               this.couple =[];
                 if(!doc.empty){
+                  this.couple = [];
                 doc.docs.map(e=>{
                   var manic = e.data()['manic'];
                   this.marryid = e.data()["marrycertificate"];
-                  console.log(manic);
                   this.adminService.read_citizen_details(manic).subscribe( data =>{
                     var details = 
                     {
